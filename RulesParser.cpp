@@ -1,11 +1,8 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <bits/stdc++.h>
+//
+// Created by youssef on 11/27/2022.
+//
 
-#ifndef COMPILERPROJECT_LEXICALRULESPARSER_H
-#define COMPILERPROJECT_LEXICALRULESPARSER_H
-
+#include "RulesParser.h"
 #define REGULAR_DEFINITION_EQUAL '='
 #define REGULAR_EXPRESSION_EQUAL ':'
 #define PUNCUTUATION_OPEN_BRACKET '['
@@ -17,18 +14,8 @@
 #define SPACE ' '
 #define DEBUG true
 using namespace std;
-struct RegularLine {
-    string LHS;
-    string RHS;
-};
 
-
-/*
-    returns 0 if the line is PUNCUTUATION
-            1 if it is a Keywords
-            else returns -1
-*/
-int getLineType(string line) {
+int RulesParser::getLineType(string line) {
     if (line[0] == PUNCUTUATION_OPEN_BRACKET)
         return 0;
     else if (line[0] == KEYWORD_OPEN_BRACKET)
@@ -36,21 +23,7 @@ int getLineType(string line) {
     return -1;
 }
 
-//globals
-vector<string> keyWords;
-vector<char> puncutuation;
-vector<RegularLine> regularDefinitions;
-vector<RegularLine> regularExpressions;
-
-void parsePuncutuationLine(string str) {
-    for (int i = 1; i < str.length() - 1; i++) {
-        if (str[i] == BACKSLASH || str[i] == SPACE)
-            continue;
-        puncutuation.push_back(str[i]);
-    }
-}
-
-void parseKeywordLine(string str) {
+void RulesParser::parseKeywordLine(string str) {
     str.erase(remove(str.begin(), str.end(), KEYWORD_OPEN_BRACKET), str.end());
     str.erase(remove(str.begin(), str.end(), KEYWORD_CLOSE_BRACKET), str.end());
 
@@ -63,7 +36,7 @@ void parseKeywordLine(string str) {
     }
 }
 
-void parseRegularLine(string str) {
+void RulesParser::parseRegularLine(string str) {
     string LHS = "";
     string RHS = "";
     bool isRegularExpression = false;
@@ -89,22 +62,28 @@ void parseRegularLine(string str) {
     } else {
         regularDefinitions.push_back(r);
     }
-
+}
+void RulesParser::parsePuncutuationLine(string str) {
+    for (int i = 1; i < str.length() - 1; i++) {
+        if (str[i] == BACKSLASH || str[i] == SPACE)
+            continue;
+        puncutuation.push_back(str[i]);
+    }
 }
 
-int parseInputFile(string path) {
+int RulesParser::parseInputFile(string path) {
     fstream reInputFile;
     reInputFile.open(path, ios::in);
     if (reInputFile.is_open()) {
         string temp;
         while (getline(reInputFile, temp)) {
-            int lineType = getLineType(temp);
+            int lineType = this->getLineType(temp);
             if (lineType == 0) {
-                parsePuncutuationLine(temp);
+                this->parsePuncutuationLine(temp);
             } else if (lineType == 1) {
-                parseKeywordLine(temp);
+                this->parseKeywordLine(temp);
             } else {
-                parseRegularLine(temp);
+                this->parseRegularLine(temp);
             }
         }
     } else {
@@ -136,5 +115,3 @@ int parseInputFile(string path) {
     return 0;
 
 }
-
-#endif // COMPILERPROJECT_LEXICALRULESPARSER_H

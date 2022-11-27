@@ -3,4 +3,4 @@ project(CompilerProject)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(CompilerProject main.cpp lexicalRulesParser.h)
+add_executable(CompilerProject main.cpp RulesParser.h RulesParser.cpp )
