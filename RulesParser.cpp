@@ -9,7 +9,6 @@
 #define PUNCUTUATION_CLOSE_BRACKET ']'
 #define KEYWORD_OPEN_BRACKET '{'
 #define KEYWORD_CLOSE_BRACKET '}'
-#define OR '|'
 #define BACKSLASH '\\'
 #define SPACE ' '
 #define DEBUG true

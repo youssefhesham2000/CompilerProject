@@ -49,6 +49,11 @@
     "last_opened_file_path": "D:/Sem-9/compilers/CompilerProject"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Sem-9\compilers\CompilerProject" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
@@ -69,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1669553747693</updated>
-      <workItem from="1669553749425" duration="1931000" />
+      <workItem from="1669553749425" duration="7178000" />
     </task>
     <servers />
   </component>
