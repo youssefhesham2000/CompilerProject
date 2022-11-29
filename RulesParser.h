@@ -17,14 +17,14 @@ class RulesParser {
     };
 public:
     vector<string> keyWords;
-    vector<char> puncutuation;
+    vector<char> punctuation;
     vector<RegularLine> regularDefinitions;
     vector<RegularLine> regularExpressions;
     int parseInputFile(string path);
 
 private:
     int getLineType(string line);
-    void parsePuncutuationLine(string str);
+    void parsePunctuationLine(string str);
     void parseKeywordLine(string str);
     void parseRegularLine(string str);
 };

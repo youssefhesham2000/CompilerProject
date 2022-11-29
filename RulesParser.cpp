@@ -62,11 +62,11 @@ void RulesParser::parseRegularLine(string str) {
         regularDefinitions.push_back(r);
     }
 }
-void RulesParser::parsePuncutuationLine(string str) {
+void RulesParser::parsePunctuationLine(string str) {
     for (int i = 1; i < str.length() - 1; i++) {
         if (str[i] == BACKSLASH || str[i] == SPACE)
             continue;
-        puncutuation.push_back(str[i]);
+        punctuation.push_back(str[i]);
     }
 }
 
@@ -78,7 +78,7 @@ int RulesParser::parseInputFile(string path) {
         while (getline(reInputFile, temp)) {
             int lineType = this->getLineType(temp);
             if (lineType == 0) {
-                this->parsePuncutuationLine(temp);
+                this->parsePunctuationLine(temp);
             } else if (lineType == 1) {
                 this->parseKeywordLine(temp);
             } else {
@@ -106,7 +106,7 @@ int RulesParser::parseInputFile(string path) {
         }
 
         cout << "puncutuations" << endl;
-        for (auto &it : puncutuation) {
+        for (auto &it : punctuation) {
             cout << it << '\n';
         }
     }
