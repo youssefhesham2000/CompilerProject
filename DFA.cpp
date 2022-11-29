@@ -1,5 +1,7 @@
 #include "DFA.h"
 
+DFA::DFA() {}
+
 DFA::DFA(const DFANode& startNode) {
     this->startNode = startNode;
     std::map<int, bool> visited;

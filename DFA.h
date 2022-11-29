@@ -9,11 +9,12 @@
 
 class DFA{
 private:
-    DFANode startNode;
     TransitionTable transitionTable;
     void traverse(const DFANode& node, std::map<int, bool>& visited);
 public:
+    DFA();
     explicit DFA(const DFANode& startNode);
+    DFANode startNode;
     std::map<int, std::map<char, int>> getTransitionTable() const;
     std::vector<Token> accept(std::string str);
 };
