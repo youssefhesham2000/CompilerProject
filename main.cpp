@@ -14,11 +14,11 @@ int main(int argc, char **argv) {
     parser.parseInputFile(lexicalRulesInputFilePath);
 
 
-//    string s = "a-z|A-Z";
-//    vector<string> operands = RegExp::getTopLevelDisjunction(s);
-//    for (const string& s: operands){
-//        cout << s << endl;
-//    }
+    string s = "letter (letter|digit)*";
+    vector<string> operands = RegExp::getTopLevelConcatenation(s);
+    for (const string& s: operands){
+        cout << s << endl;
+    }
 
     return 0;
 

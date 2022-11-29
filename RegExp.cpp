@@ -38,6 +38,14 @@ RegExp::RegExp(std::string str) {
 
 
 std::vector<std::string> RegExp::getTopLevelDisjunction(std::string str) {
+    return getTopLevelString('|', str);
+}
+
+std::vector<std::string> RegExp::getTopLevelConcatenation(std::string str) {
+    return getTopLevelString(' ', str);
+}
+
+std::vector<std::string> RegExp::getTopLevelString(char delimiter, std::string str){
     str = removeEnclosingBrackets(str);
     std::vector<std::string> operands;
 
@@ -45,8 +53,9 @@ std::vector<std::string> RegExp::getTopLevelDisjunction(std::string str) {
     int openBrackets = 0;
 
     for (int i = 0;i < str.size();i++) {
-        if (str[i] == '|' && openBrackets == 0) {
-            operands.push_back(temp);
+        if (str[i] == delimiter && openBrackets == 0) {
+            if (!emptyString(temp))
+                operands.push_back(temp);
             temp = "";
         } else if (str[i] == '\\') {
             // This is a \ followed by a literal, append both
@@ -64,14 +73,9 @@ std::vector<std::string> RegExp::getTopLevelDisjunction(std::string str) {
         }
     }
 
-    if (!temp.empty())
+    if (!emptyString(temp))
         operands.push_back(temp);
     return operands;
-}
-
-std::vector<std::string> RegExp::getTopLevelConcatenation(std::string str) {
-    // TODO
-    return std::vector<std::string>();
 }
 
 std::vector<std::string> RegExp::getTopLevelClosure(std::string str) {
@@ -83,6 +87,13 @@ std::string RegExp::removeEnclosingBrackets(std::string str) {
     while (str.front() == '(' && str.back() == ')')
         str = str.substr(1, str.size()-2);
     return str;
+}
+
+/**
+ * String containing only whitespaces
+ */
+bool RegExp::emptyString(std::string str) {
+    return str.find_first_not_of(' ') == std::string::npos;
 }
 
 

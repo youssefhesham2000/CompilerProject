@@ -11,16 +11,19 @@
 enum RegExpType { concatenation, disjunction, closure, terminal };
 
 class RegExp {
-//private:
+//private: public for testing purposes
 public:
-    // Helpers:
 
     // marking these as static to separate them from the class variables
     static std::vector<std::string> getTopLevelDisjunction(std::string str);
     static std::vector<std::string> getTopLevelConcatenation(std::string str);
     static std::vector<std::string> getTopLevelClosure(std::string str);
     RegExp(std::vector<RegExp> operands, RegExpType type): operands(std::move(operands)), type(type) {};
+
+    // Helpers:
+    static std::vector<std::string> getTopLevelString(char delimiter, std::string str);
     static std::string removeEnclosingBrackets(std::string str);
+    static bool emptyString(std::string str);
 
 
 public:
@@ -28,6 +31,7 @@ public:
     std::vector<RegExp> operands;
     char terminal{};
     explicit RegExp(std::string str);
+
 };
 
 
