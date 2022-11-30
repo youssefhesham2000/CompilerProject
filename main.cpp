@@ -14,8 +14,12 @@ int main(int argc, char **argv) {
     parser.parseInputFile(lexicalRulesInputFilePath);
 
 
-    string s = "letter (letter|digit)*";
-    vector<string> operands = RegExp::getTopLevelConcatenation(s);
+    string s = "a-z";
+    cout << s << endl;
+    s = RegExp::removeLeadingAndTrailingSpaces(s);
+    vector<string> operands = RegExp::getRange(s);
+    RegExp r(s);
+    cout << r.type<< endl;
     for (const string& s: operands){
         cout << s << endl;
     }

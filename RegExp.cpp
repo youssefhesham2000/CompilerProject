@@ -8,6 +8,8 @@
 
 
 RegExp::RegExp(std::string str) {
+    str = RegExp::removeLeadingAndTrailingSpaces(str);
+
     std::vector<std::string> disjunctionOperands = RegExp::getTopLevelDisjunction(str);
 
     // If there are multiple operands separated by |, parse each of them
@@ -31,7 +33,28 @@ RegExp::RegExp(std::string str) {
         return;
     }
 
-    // TODO: implement ()*, ()+, and ()
+    std::vector<std::string> closureOperands = RegExp::getTopLevelClosure(str);
+
+    if (closureOperands.size() > 1) {
+        std::string closureType = closureOperands.back();
+        if (closureType == "+")
+            type = RegExpType::positiveClosure;
+        else if (closureType == "*")
+            type = RegExpType::kleeneClosure;
+        operands.emplace_back(closureOperands.front());
+        return;
+    }
+
+    std::vector<std::string> rangeOperands = RegExp::getRange(str);
+
+    if (rangeOperands.size() > 1) {
+        type = RegExpType::range;
+        for (const auto& operand: rangeOperands) {
+            operands.emplace_back(operand);
+        }
+        return;
+    }
+
     type = RegExpType::terminal;
     terminal = str[0];
 }
@@ -80,13 +103,64 @@ std::vector<std::string> RegExp::getTopLevelString(char delimiter, std::string s
 
 std::vector<std::string> RegExp::getTopLevelClosure(std::string str) {
     // TODO
-    return std::vector<std::string>();
+    std::vector<std::string> operands;
+    int n = str.size();
+    int endOfString;
+    std::string closureType;
+    std::string temp;
+
+    if (str.front() == '(' && str[n-2] == ')'){
+        endOfString = n-3;
+        closureType = std::string(1,str[n-1]);
+        temp = str.substr(1, endOfString);
+        operands.push_back(temp);
+        // Type of closure will be returned in the vector.
+        operands.push_back(closureType);
+        return operands;
+    }
+    else if (str.back() == '+' || str.back() == '*') {
+        endOfString = n-1;
+        temp = str.substr(0, endOfString);
+        operands.push_back(temp);
+        closureType = str.back();
+        // Type of closure will be returned in the vector.
+        operands.push_back(closureType);
+        return operands;
+    }
+    operands.push_back(str);
+    return operands;
+}
+
+std::vector<std::string> RegExp::getRange(std::string str) {
+    std::vector<std::string> rangeOperands;
+
+    if (str[1] == '-') {
+        int start = str.front();
+        int end = str.back();
+        for (int i = start; i <= end; ++i) {
+            rangeOperands.push_back(std::string(1, i));
+        }
+        return rangeOperands;
+    }
+    rangeOperands.push_back(str);
+    return rangeOperands;
 }
 
 std::string RegExp::removeEnclosingBrackets(std::string str) {
     while (str.front() == '(' && str.back() == ')')
         str = str.substr(1, str.size()-2);
     return str;
+}
+
+std::string RegExp::removeLeadingAndTrailingSpaces(std::string str) {
+    int start=0;
+    int end = str.size();
+    while (start< str.size() && str[start] == ' ')
+        start++;
+
+    while (end > 0 && str[end-1] == ' ')
+        end--;
+    return str.substr(start, end-start);
 }
 
 /**
