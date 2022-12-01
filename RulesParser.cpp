@@ -3,6 +3,7 @@
 //
 
 #include "RulesParser.h"
+#include "StringUtils.h"
 #define REGULAR_DEFINITION_EQUAL '='
 #define REGULAR_EXPRESSION_EQUAL ':'
 #define PUNCUTUATION_OPEN_BRACKET '['
@@ -14,6 +15,7 @@
 #define DEBUG true
 using namespace std;
 
+std::map<std::string, RegExp> RulesParser::regularDefinitionsMap;
 int RulesParser::getLineType(string line) {
     if (line[0] == PUNCUTUATION_OPEN_BRACKET)
         return 0;
@@ -54,7 +56,7 @@ void RulesParser::parseRegularLine(string str) {
         i++;
     }
     RegularLine r;
-    r.LHS = LHS;
+    r.LHS = StringUtils::removeLeadingAndTrailingSpaces(LHS);
     r.RHS = RHS;
     if (isRegularExpression) {
         regularExpressions.push_back(r);
@@ -89,27 +91,50 @@ int RulesParser::parseInputFile(string path) {
         cout << "File Exception" << endl;
     }
     reInputFile.close();
-    if (DEBUG) {
-        cout << "regular expressions" << endl;
-        for (auto &it : regularExpressions) {
-            cout << it.LHS << '\n';
-            cout << it.RHS << '\n';
-        }
-        cout << "regular defenitions" << endl;
-        for (auto &it : regularDefinitions) {
-            cout << it.LHS << '\n';
-            cout << it.RHS << '\n';
-        }
-        cout << "KeyWords" << endl;
-        for (auto &it : keyWords) {
-            cout << it << '\n';
-        }
 
-        cout << "puncutuations" << endl;
-        for (auto &it : punctuation) {
-            cout << it << '\n';
-        }
+    for (RegularLine line: regularDefinitions) {
+        RegExp regExp = RegExp::parseRegExp(line.RHS);
+        regularDefinitionsMap[line.LHS] = regExp;
     }
+
+    for (RegularLine line: regularExpressions) {
+        RegExp regExp = RegExp::parseRegExp(line.RHS);
+        regularDefinitionsMap[line.LHS] = regExp;
+    }
+
+    if (!DEBUG)
+        return 0;
+
+    for (auto kv_pair: regularDefinitionsMap) {
+        cout << kv_pair.first << " :" << endl;
+        for (string line: kv_pair.second.toString())
+            cout << line << endl;
+        cout << "----------------------------------------\n";
+    }
+
+    /*
+    cout << "regular expressions" << endl;
+    for (auto &it : regularExpressions) {
+        cout << it.LHS << '\n';
+        cout << it.RHS << '\n';
+    }
+    cout << "regular defenitions" << endl;
+    for (auto &it : regularDefinitions) {
+        cout << it.LHS << '\n';
+        cout << it.RHS << '\n';
+    }
+    cout << "KeyWords" << endl;
+    for (auto &it : keyWords) {
+        cout << it << '\n';
+    }
+
+    cout << "puncutuations" << endl;
+    for (auto &it : punctuation) {
+        cout << it << '\n';
+    }
+*/
+
+
 
     return 0;
 

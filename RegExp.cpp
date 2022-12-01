@@ -4,33 +4,48 @@
 
 #include <iostream>
 #include "RegExp.h"
+#include "RulesParser.h"
+#include "StringUtils.h"
 
 
+RegExp RegExp::parseRegExp(std::string str) {
+    str = StringUtils::removeLeadingAndTrailingSpaces(str);
+    str = StringUtils::removeEnclosingBrackets(str);
 
-RegExp::RegExp(std::string str) {
-    str = RegExp::removeLeadingAndTrailingSpaces(str);
+    std::vector<RegExp> operands;
+    RegExpType type;
+
+    // Single terminal or epsilon
+    if (str.size() == 1) {
+        return RegExp(str[0]);
+    }
+
+    if (str.size() == 2 && str[0] == '\\') {
+        if (str[1] == 'L')
+            return RegExp::epsilon();
+        return RegExp(str[1]);
+    }
 
     std::vector<std::string> disjunctionOperands = RegExp::getTopLevelDisjunction(str);
 
     // If there are multiple operands separated by |, parse each of them
     if (disjunctionOperands.size() > 1){
         type = RegExpType::disjunction;
-
         for (const auto& operand: disjunctionOperands) {
-            operands.emplace_back(operand);
+            operands.push_back(parseRegExp(operand));
         }
-        return;
+
+        return RegExp(operands, type);
     }
 
     std::vector<std::string> concatenationOperands = RegExp::getTopLevelConcatenation(str);
 
     if (concatenationOperands.size() > 1){
         type = RegExpType::concatenation;
-
         for (const auto& operand: concatenationOperands) {
-            operands.emplace_back(operand);
+            operands.push_back(parseRegExp(operand));
         }
-        return;
+        return RegExp(operands, type);
     }
 
     std::vector<std::string> closureOperands = RegExp::getTopLevelClosure(str);
@@ -41,8 +56,8 @@ RegExp::RegExp(std::string str) {
             type = RegExpType::positiveClosure;
         else if (closureType == "*")
             type = RegExpType::kleeneClosure;
-        operands.emplace_back(closureOperands.front());
-        return;
+        operands.push_back(parseRegExp(closureOperands.front()));
+        return RegExp(operands, type);
     }
 
     std::vector<std::string> rangeOperands = RegExp::getRange(str);
@@ -50,13 +65,35 @@ RegExp::RegExp(std::string str) {
     if (rangeOperands.size() > 1) {
         type = RegExpType::range;
         for (const auto& operand: rangeOperands) {
-            operands.emplace_back(operand);
+            operands.push_back(parseRegExp(operand));
         }
-        return;
+        return RegExp(operands, type);
     }
 
-    type = RegExpType::terminal;
-    terminal = str[0];
+
+    // Check if this a regular definition
+    auto regularDefinition = RulesParser::regularDefinitionsMap.find(str);
+    if (regularDefinition != RulesParser::regularDefinitionsMap.end()) {
+        // Token already exists
+        return regularDefinition->second;
+    }
+
+    // Finally, this is a sequence of terminals
+    // Consider it as a concatenation
+    type = concatenation;
+    for (int i = 0;i < str.size();i++) {
+       if (str[i] == '\\'){
+           if (str[i+1] == 'L')
+               operands.push_back(RegExp::epsilon());
+           else
+               operands.push_back(RegExp(str[i+1]));
+
+           i++;
+       }
+       else operands.push_back(RegExp(str[i]));
+    }
+
+    return RegExp(operands, type);
 }
 
 
@@ -69,7 +106,6 @@ std::vector<std::string> RegExp::getTopLevelConcatenation(std::string str) {
 }
 
 std::vector<std::string> RegExp::getTopLevelString(char delimiter, std::string str){
-    str = removeEnclosingBrackets(str);
     std::vector<std::string> operands;
 
     std::string temp = "";
@@ -77,7 +113,7 @@ std::vector<std::string> RegExp::getTopLevelString(char delimiter, std::string s
 
     for (int i = 0;i < str.size();i++) {
         if (str[i] == delimiter && openBrackets == 0) {
-            if (!emptyString(temp))
+            if (!StringUtils::emptyString(temp))
                 operands.push_back(temp);
             temp = "";
         } else if (str[i] == '\\') {
@@ -96,7 +132,7 @@ std::vector<std::string> RegExp::getTopLevelString(char delimiter, std::string s
         }
     }
 
-    if (!emptyString(temp))
+    if (!StringUtils::emptyString(temp))
         operands.push_back(temp);
     return operands;
 }
@@ -146,28 +182,39 @@ std::vector<std::string> RegExp::getRange(std::string str) {
     return rangeOperands;
 }
 
-std::string RegExp::removeEnclosingBrackets(std::string str) {
-    while (str.front() == '(' && str.back() == ')')
-        str = str.substr(1, str.size()-2);
-    return str;
+
+std::vector<std::string> RegExp::toString() {
+    std::vector<std::string> result;
+
+    switch (type) {
+        case disjunction:
+            result.push_back("OR");
+            break;
+        case concatenation:
+            result.push_back("CONCAT");
+            break;
+        case kleeneClosure:
+            result.push_back("*");
+            break;
+        case positiveClosure:
+            result.push_back("+");
+            break;
+        case range:
+            result.push_back("RANGE");
+            break;
+        case RegExpType::terminal:
+            result.emplace_back(1, terminal);
+            return result;
+        case RegExpType::epsilon:
+            result.push_back("EPISLON");
+            return result;
+    }
+
+    for (RegExp operand: operands) {
+        for (std::string line : operand.toString()) {
+            result.push_back("\t" + line);
+        }
+    }
+
+    return result;
 }
-
-std::string RegExp::removeLeadingAndTrailingSpaces(std::string str) {
-    int start=0;
-    int end = str.size();
-    while (start< str.size() && str[start] == ' ')
-        start++;
-
-    while (end > 0 && str[end-1] == ' ')
-        end--;
-    return str.substr(start, end-start);
-}
-
-/**
- * String containing only whitespaces
- */
-bool RegExp::emptyString(std::string str) {
-    return str.find_first_not_of(' ') == std::string::npos;
-}
-
-

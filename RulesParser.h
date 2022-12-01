@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include <bits/stdc++.h>
+#include "RegExp.h"
 using namespace std;
 #ifndef COMPILERPROJECT_RULESPARSER_H
 #define COMPILERPROJECT_RULESPARSER_H
@@ -20,6 +21,7 @@ public:
     vector<char> punctuation;
     vector<RegularLine> regularDefinitions;
     vector<RegularLine> regularExpressions;
+    static std::map<std::string, RegExp> regularDefinitionsMap;
     int parseInputFile(string path);
 
 private:
