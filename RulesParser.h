@@ -18,7 +18,7 @@ class RulesParser {
     };
 public:
     vector<string> keyWords;
-    vector<char> punctuation;
+    vector<string> punctuation;
     vector<RegularLine> regularDefinitions;
     vector<RegularLine> regularExpressions;
     static std::map<std::string, RegExp> regularDefinitionsMap;

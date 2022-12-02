@@ -30,6 +30,9 @@ public:
         regExp.type = RegExpType::epsilon;
         return regExp;
     };
+
+    static RegExp parsePunctuations(std::string str);
+    static RegExp parseKeyWord(std::string str);
     static std::vector<std::string> getTopLevelDisjunction(std::string str);
     static std::vector<std::string> getTopLevelConcatenation(std::string str);
     static std::vector<std::string> getTopLevelClosure(std::string str);
