@@ -68,7 +68,7 @@ void RulesParser::parsePunctuationLine(string str) {
     for (int i = 1; i < str.length() - 1; i++) {
         if (str[i] == BACKSLASH || str[i] == SPACE)
             continue;
-        punctuation.push_back(str[i]);
+        punctuation.push_back(std::string(1, str[i]));
     }
 }
 
@@ -123,6 +123,7 @@ int RulesParser::parseInputFile(string path) {
         cout << it.LHS << '\n';
         cout << it.RHS << '\n';
     }
+
     cout << "KeyWords" << endl;
     for (auto &it : keyWords) {
         cout << it << '\n';
@@ -133,7 +134,6 @@ int RulesParser::parseInputFile(string path) {
         cout << it << '\n';
     }
 */
-
 
 
     return 0;

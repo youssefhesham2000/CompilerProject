@@ -182,6 +182,22 @@ std::vector<std::string> RegExp::getRange(std::string str) {
     return rangeOperands;
 }
 
+RegExp RegExp::parseKeyWord(std::string str) {
+    std::string temp = StringUtils::removeLeadingAndTrailingSpaces(str);
+    std::vector<RegExp> operands;
+    RegExpType type =RegExpType::concatenation;
+    for(int i = 0; i < temp.length(); i++) {
+        operands.push_back(parseRegExp(std::string(1, temp[i])));
+    }
+    return RegExp(operands,type);
+}
+
+RegExp RegExp::parsePunctuations(std::string str) {
+    str = StringUtils::removeLeadingAndTrailingSpaces(str);
+    if (str.length()>1)
+        throw std::invalid_argument(str);
+    return parseRegExp(str);
+}
 
 std::vector<std::string> RegExp::toString() {
     std::vector<std::string> result;
