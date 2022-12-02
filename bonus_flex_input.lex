@@ -1,6 +1,3 @@
-
-/* scanner for a toy Pascal-like language */
-
 %option noyywrap
 %{
 /* need this for the call to atof() below */
