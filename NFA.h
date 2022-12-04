@@ -18,7 +18,7 @@ class NFA {
 
     // used to mark the end of the machine, used for the thompson construction operations.
     // isFinal + type on each NFANode will mark what kind of token it accepts.
-    NFANode finalState;
+    NFANode endNode;
 
 public:
     NFA(RegExp regExp);

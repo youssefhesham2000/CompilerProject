@@ -19,8 +19,10 @@ NFA::NFA(RegExp regExp) {
 NFA constructConcatenation(RegExp regExp){
     assert(regExp.type == RegExpType::concatenation);
 
-    NFA nfa();
+    // first operand
+    NFA nfa = NFA(regExp.operands[0]);
 
+    // remaining operands
     for (RegExp operand: regExp.operands) {
         NFA nfa = NFA(operand);
 
