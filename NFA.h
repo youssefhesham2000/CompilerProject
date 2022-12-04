@@ -15,11 +15,15 @@ private:
 
     // Thompson construction helpers
     static NFA constructNFA(RegExp regExp);
-    /**
-     * Terminal constructor
-     */
+    // Terminal constructor, connects the start with the end with the given char
     NFA(char);
+    // Empty construction, doesn't connect the start and end nodes
+    NFA(){};
     static NFA constructConcatenation(RegExp regExp);
+    static NFA constructDisjunction(RegExp regExp);
+    static NFA constructKleeneClosure(RegExp regExp);
+    static NFA constructPositiveClosure(RegExp regExp);
+
 
 public:
     NFA(RegExp regExp, std::string type);
@@ -28,6 +32,7 @@ public:
     // used to mark the end of the machine, used for the thompson construction operations.
     // isFinal + type on each NFANode will mark what kind of token it accepts.
     NFANode endNode;
+
 };
 
 
