@@ -11,18 +11,23 @@
 
 
 class NFA {
+private:
 
+    // Thompson construction helpers
+    static NFA constructNFA(RegExp regExp);
+    /**
+     * Terminal constructor
+     */
+    NFA(char);
+    static NFA constructConcatenation(RegExp regExp);
 
 public:
-    static const char epsilonTransition = '\0';
+    NFA(RegExp regExp, std::string type);
+
     NFANode startNode;
     // used to mark the end of the machine, used for the thompson construction operations.
     // isFinal + type on each NFANode will mark what kind of token it accepts.
     NFANode endNode;
-    explicit NFA(RegExp regExp);
-    // Generate a transition table by traversing this NFA starting from startNode
-    // used in subset construction
-    std::map<char, std::vector<NFANode>> getTransitionTable();
 };
 
 

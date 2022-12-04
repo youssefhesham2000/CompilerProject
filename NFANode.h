@@ -8,8 +8,12 @@
 #ifndef COMPILERPROJECT_NFANODE_H
 #define COMPILERPROJECT_NFANODE_H
 
+const char epsilonTransition = '\0';
 
 class NFANode {
+
+public:
+
     std::map<char, std::vector<NFANode>> transitions;
     int id;
     bool isFinal;
