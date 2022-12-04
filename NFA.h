@@ -15,7 +15,10 @@ class NFA {
 
     std::map<char, std::vector<NFANode>> transitionTable;
     NFANode startNode;
-    std::vector<NFANode> finalStates;
+
+    // used to mark the end of the machine, used for the thompson construction operations.
+    // isFinal + type on each NFANode will mark what kind of token it accepts.
+    NFANode finalState;
 
 public:
     NFA(RegExp regExp);

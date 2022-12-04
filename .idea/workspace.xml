@@ -15,12 +15,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8beb4a07-316b-4d2b-9bc4-98bf195b77c0" name="Changes" comment="Fix type">
-      <change afterPath="$PROJECT_DIR$/NFA.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NFA.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NFANode.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/NFANode.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NFA.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/NFA.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NFA.h" beforeDir="false" afterPath="$PROJECT_DIR$/NFA.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NFANode.h" beforeDir="false" afterPath="$PROJECT_DIR$/NFANode.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +46,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -81,7 +81,7 @@
       <workItem from="1669553749425" duration="7178000" />
       <workItem from="1669837920992" duration="8838000" />
       <workItem from="1669992420107" duration="4100000" />
-      <workItem from="1670168808905" duration="1281000" />
+      <workItem from="1670168808905" duration="1615000" />
     </task>
     <task id="LOCAL-00001" summary="Fix type">
       <created>1669745515002</created>

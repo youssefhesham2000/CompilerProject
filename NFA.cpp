@@ -10,10 +10,7 @@ std::map<char, std::vector<NFANode>> NFA::getTransitionTable() const {
 }
 
 NFA::NFA(RegExp regExp) {
-    switch (regExp.type) {
-        case concatenation:
 
-    }
 }
 
 
@@ -22,7 +19,11 @@ NFA::NFA(RegExp regExp) {
 NFA constructConcatenation(RegExp regExp){
     assert(regExp.type == RegExpType::concatenation);
 
+    NFA nfa();
+
     for (RegExp operand: regExp.operands) {
+        NFA nfa = NFA(operand);
 
     }
+    return nfa;
 }
