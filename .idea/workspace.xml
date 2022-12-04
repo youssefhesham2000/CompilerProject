@@ -18,7 +18,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NFA.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/NFA.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NFA.h" beforeDir="false" afterPath="$PROJECT_DIR$/NFA.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NFANode.h" beforeDir="false" afterPath="$PROJECT_DIR$/NFANode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +80,7 @@
       <workItem from="1669553749425" duration="7178000" />
       <workItem from="1669837920992" duration="8838000" />
       <workItem from="1669992420107" duration="4100000" />
-      <workItem from="1670168808905" duration="4348000" />
+      <workItem from="1670168808905" duration="5503000" />
     </task>
     <task id="LOCAL-00001" summary="Fix type">
       <created>1669745515002</created>
@@ -110,16 +110,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix type" />
     <option name="LAST_COMMIT_MESSAGE" value="Fix type" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/RegExp.cpp</url>
-          <line>229</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
     //"D:\\rules.txt"
     // Use the run configuration "Run on rules.txt"
     //string lexicalRulesInputFilePath = argv[1];
-    string lexicalRulesInputFilePath ="D:\\rules.txt";
+    string lexicalRulesInputFilePath ="D:\\College\\4th year - 1st semester\\Compilers\\CompilerProject\\rules.txt";
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
     for (auto &it : parser.punctuation) {

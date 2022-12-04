@@ -31,8 +31,17 @@ NFA NFA::constructNFA(RegExp regExp){
     switch (regExp.type) {
         case terminal:
             return NFA(regExp.terminal);
+        case epsilon:
+            return NFA(epsilonTransition);
         case concatenation:
             return constructConcatenation(regExp);
+        case disjunction:
+        case range:
+            return constructDisjunction(regExp);
+        case kleeneClosure:
+            return constructKleeneClosure(regExp);
+        case positiveClosure:
+            return constructPositiveClosure(regExp);
         default:
             throw std::runtime_error("Something went wrong");
     }
@@ -44,6 +53,7 @@ NFA::NFA(char c){
 }
 
 // THOMPSON CONSTRUCTION HELPERS
+// All these constructors don't set any isFinal on any nodes, just creates the connections
 NFA NFA::constructConcatenation(RegExp regExp){
     assert(regExp.type == RegExpType::concatenation);
 
@@ -58,4 +68,55 @@ NFA NFA::constructConcatenation(RegExp regExp){
     return combinedNFA;
 }
 
+NFA NFA::constructDisjunction(RegExp regExp){
+    assert(regExp.type == RegExpType::disjunction || regExp.type == RegExpType::range);
+
+    NFA combinedNFA;
+
+    for (RegExp operand: regExp.operands) {
+        NFA nfa = constructNFA(operand);
+
+        combinedNFA.startNode.transitions[epsilonTransition].push_back(nfa.startNode);
+
+        nfa.endNode.transitions[epsilonTransition].push_back(combinedNFA.endNode);
+    }
+
+    return combinedNFA;
+}
+
+NFA NFA::constructKleeneClosure(RegExp regExp){
+    assert(regExp.type == RegExpType::kleeneClosure);
+
+    NFA finalNFA;
+
+    NFA internalNFA = constructNFA(regExp.operands[0]);
+
+    // connecting the start with start, and end with end
+    finalNFA.startNode.transitions[epsilonTransition].push_back(internalNFA.startNode);
+    internalNFA.endNode.transitions[epsilonTransition].push_back(finalNFA.endNode);
+
+    // loop back
+    internalNFA.endNode.transitions[epsilonTransition].push_back(internalNFA.startNode);
+
+    // skip transition
+    finalNFA.startNode.transitions[epsilonTransition].push_back(internalNFA.endNode);
+    return finalNFA;
+}
+
+NFA NFA::constructPositiveClosure(RegExp regExp) {
+    assert(regExp.type == RegExpType::positiveClosure);
+
+    NFA finalNFA;
+
+    NFA internalNFA = constructNFA(regExp.operands[0]);
+
+    // connecting the start with start, and end with end
+    finalNFA.startNode.transitions[epsilonTransition].push_back(internalNFA.startNode);
+    internalNFA.endNode.transitions[epsilonTransition].push_back(finalNFA.endNode);
+
+    // loop back
+    internalNFA.endNode.transitions[epsilonTransition].push_back(internalNFA.startNode);
+
+    return finalNFA;
+}
 
