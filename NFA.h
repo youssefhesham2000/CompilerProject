@@ -14,7 +14,7 @@ class NFA {
 
 
 public:
-    static const char espilon = '\0';
+    static const char epsilonTransition = '\0';
     NFANode startNode;
     // used to mark the end of the machine, used for the thompson construction operations.
     // isFinal + type on each NFANode will mark what kind of token it accepts.

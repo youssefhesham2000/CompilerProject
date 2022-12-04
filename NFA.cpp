@@ -25,7 +25,7 @@ NFA constructConcatenation(RegExp regExp){
     // remaining operands
     for (int i = 1;i < regExp.operands.size();i++) {
         NFA nfa = NFA(regExp.operands[i]);
-        combinedNFA.endNode
+        combinedNFA.endNode.transitions[NFA::epsilonTransition]
 
     }
     return nfa;
