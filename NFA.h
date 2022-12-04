@@ -11,7 +11,7 @@
 
 
 class NFA {
-    std::map<char, std::vector<NFANode>> transitionTable;
+
 
 public:
     static const char espilon = '\0';
@@ -20,7 +20,9 @@ public:
     // isFinal + type on each NFANode will mark what kind of token it accepts.
     NFANode endNode;
     explicit NFA(RegExp regExp);
-    std::map<char, std::vector<NFANode>> getTransitionTable() const;
+    // Generate a transition table by traversing this NFA starting from startNode
+    // used in subset construction
+    std::map<char, std::vector<NFANode>> getTransitionTable();
 };
 
 
