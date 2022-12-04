@@ -11,17 +11,15 @@
 
 
 class NFA {
-    static const char espilon = '\0';
-
     std::map<char, std::vector<NFANode>> transitionTable;
-    NFANode startNode;
 
+public:
+    static const char espilon = '\0';
+    NFANode startNode;
     // used to mark the end of the machine, used for the thompson construction operations.
     // isFinal + type on each NFANode will mark what kind of token it accepts.
     NFANode endNode;
-
-public:
-    NFA(RegExp regExp);
+    explicit NFA(RegExp regExp);
     std::map<char, std::vector<NFANode>> getTransitionTable() const;
 };
 

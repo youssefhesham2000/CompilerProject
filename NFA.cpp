@@ -20,11 +20,12 @@ NFA constructConcatenation(RegExp regExp){
     assert(regExp.type == RegExpType::concatenation);
 
     // first operand
-    NFA nfa = NFA(regExp.operands[0]);
+    NFA combinedNFA = NFA(regExp.operands[0]);
 
     // remaining operands
-    for (RegExp operand: regExp.operands) {
-        NFA nfa = NFA(operand);
+    for (int i = 1;i < regExp.operands.size();i++) {
+        NFA nfa = NFA(regExp.operands[i]);
+        combinedNFA.
 
     }
     return nfa;
