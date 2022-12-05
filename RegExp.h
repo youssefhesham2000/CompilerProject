@@ -30,10 +30,10 @@ public:
     };
     // marking these as static to separate them from the class variables
     // use RegExpGenerator::generateAllExpressions for the creation of the RegExps.
-     static RegExp parseRegExp(std::string str);
+     static RegExp parseRegExp(std::string str, std::map<std::string, RegExp> regularDefinitionsToRegExp);
 
-    static RegExp parsePunctuations(std::string str);
-    static RegExp parseKeyWord(std::string str);
+    static RegExp parsePunctuations(std::string str, std::map<std::string, RegExp> regularDefinitionsToRegExp);
+    static RegExp parseKeyWord(std::string str, std::map<std::string, RegExp> regularDefinitionsToRegExp);
     static std::vector<std::string> getTopLevelDisjunction(std::string str);
     static std::vector<std::string> getTopLevelConcatenation(std::string str);
     static std::vector<std::string> getTopLevelClosure(std::string str);

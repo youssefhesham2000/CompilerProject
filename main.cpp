@@ -4,6 +4,7 @@
 #include "NFA.h"
 #include "NFAConvertor.h"
 #include "DFANode.h"
+#include "RegExpGenerator.h"
 using namespace std;
 
 
@@ -12,23 +13,13 @@ int main(int argc, char **argv) {
     // Use the run configuration "Run on rules.txt"
     //string lexicalRulesInputFilePath = argv[1];
 
-    string lexicalRulesInputFilePath ="D:\\College\\4th year - 1st semester\\Compilers\\CompilerProject\\rules.txt";
-    //RulesParser parser;
-    //parser.parseInputFile(lexicalRulesInputFilePath);
-    RegExp test = RegExp::parseRegExp(" a | A");
-    RegExp test2 = RegExp::parseRegExp(" a A");
-    vector<std::string> t = test.toString();
-        for (auto &it2 : t) {
-            cout << it2 << '\n';
-        }
-        NFA nfa = NFA(test, "testType");
-        NFA nfa2 = NFA(test, "testType2");
-        vector<NFA> NFAs ;
-        NFAs.push_back(nfa);
-        NFAs.push_back(nfa2);
-        NFA combined = NFA::constructCombinedNFA(NFAs);
-        NFAConvertor r;
-        DFANode te = r.convert(nfa.startNode);
+    string lexicalRulesInputFilePath ="D:\\rules.txt";
+    RulesParser parser;
+    parser.parseInputFile(lexicalRulesInputFilePath);
+    RegExpGenerator generator = RegExpGenerator(parser.regularDefinitions);
+    map<string, RegExp> parsedRegExp = generator.generateAllExpressions(parser);
+    RegExp temp = parsedRegExp["id"];
+    NFA combinedNfa = NFA::constructCombinedNFA(parsedRegExp);
     cout<<"test"<<endl;
 
 

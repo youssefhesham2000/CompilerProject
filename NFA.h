@@ -5,7 +5,7 @@
 #include <vector>
 #include "NFANode.h"
 #include "RegExp.h"
-
+#include "map"
 #ifndef COMPILERPROJECT_NFA_H
 #define COMPILERPROJECT_NFA_H
 
@@ -29,7 +29,7 @@ public:
 
     NFA(RegExp regExp, std::string type);
 
-    static NFA constructCombinedNFA(std::vector<NFA> NFAs);
+    static NFA constructCombinedNFA(std::map<std::string,RegExp> parsedRegExp);
 
     NFANode* startNode = new NFANode();
     // used to mark the end of the machine, used for the thompson construction operations.

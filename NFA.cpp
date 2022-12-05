@@ -53,7 +53,12 @@ NFA NFA::constructNFA(RegExp regExp){
  * @param NFAs : vector<NFA> vector of the wanted NFAs to be combined
  * @return NFA: returns a combined NFA.
  */
-NFA NFA::constructCombinedNFA(std::vector<NFA> NFAs) {
+NFA NFA::constructCombinedNFA(std::map<std::string,RegExp> parsedRegExp) {
+    std::vector<NFA> NFAs;
+    for(auto item: parsedRegExp) {
+        NFA tempNfa = NFA(item.second, item.first);
+        NFAs.push_back(tempNfa);
+    }
     NFA combinedNFA;
     // loop over the NFAs and add an epsilon transition from the combinedNFA to the start node of each.
     for(auto& nfa: NFAs) {
