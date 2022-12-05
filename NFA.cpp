@@ -18,8 +18,8 @@ NFA::NFA(RegExp regExp, std::string type) {
     NFA nfa = constructNFA(regExp);
     startNode = nfa.startNode;
     endNode = nfa.endNode;
-    endNode.isFinal = true;
-    endNode.type = type;
+    endNode->isFinal = true;
+    endNode->type = type;
 }
 
 /**
@@ -37,6 +37,7 @@ NFA NFA::constructNFA(RegExp regExp){
         case concatenation:
             return constructConcatenation(regExp);
         case disjunction:
+            return constructDisjunction(regExp);
         case range:
             return constructDisjunction(regExp);
         case kleeneClosure:
@@ -50,7 +51,16 @@ NFA NFA::constructNFA(RegExp regExp){
 
 
 NFA::NFA(char c){
-    startNode.transitions[c].push_back(endNode);
+    startNode->transitions.size();
+    if(startNode->transitions.count(c)){
+        startNode->transitions[c].push_back(endNode);
+    }
+    else {
+        std::vector<NFANode*> temp;
+        temp.push_back(endNode);
+        startNode->transitions.insert({c, temp});
+    }
+
 }
 
 // THOMPSON CONSTRUCTION HELPERS
@@ -64,7 +74,7 @@ NFA NFA::constructConcatenation(RegExp regExp){
     // remaining operands
     for (int i = 1;i < regExp.operands.size();i++) {
         NFA nfa = constructNFA(regExp.operands[i]);
-        combinedNFA.endNode.transitions[epsilonTransition].push_back(nfa.startNode);
+        combinedNFA.endNode->transitions[epsilonTransition].push_back(nfa.startNode);
     }
     return combinedNFA;
 }
@@ -77,9 +87,9 @@ NFA NFA::constructDisjunction(RegExp regExp){
     for (RegExp operand: regExp.operands) {
         NFA nfa = constructNFA(operand);
 
-        combinedNFA.startNode.transitions[epsilonTransition].push_back(nfa.startNode);
+        combinedNFA.startNode->transitions[epsilonTransition].push_back(nfa.startNode);
 
-        nfa.endNode.transitions[epsilonTransition].push_back(combinedNFA.endNode);
+        nfa.endNode->transitions[epsilonTransition].push_back(combinedNFA.endNode);
     }
 
     return combinedNFA;
@@ -93,14 +103,14 @@ NFA NFA::constructKleeneClosure(RegExp regExp){
     NFA internalNFA = constructNFA(regExp.operands[0]);
 
     // connecting the start with start, and end with end
-    finalNFA.startNode.transitions[epsilonTransition].push_back(internalNFA.startNode);
-    internalNFA.endNode.transitions[epsilonTransition].push_back(finalNFA.endNode);
+    finalNFA.startNode->transitions[epsilonTransition].push_back(internalNFA.startNode);
+    internalNFA.endNode->transitions[epsilonTransition].push_back(finalNFA.endNode);
 
     // loop back
-    internalNFA.endNode.transitions[epsilonTransition].push_back(internalNFA.startNode);
+    internalNFA.endNode->transitions[epsilonTransition].push_back(internalNFA.startNode);
 
     // skip transition
-    finalNFA.startNode.transitions[epsilonTransition].push_back(internalNFA.endNode);
+    finalNFA.startNode->transitions[epsilonTransition].push_back(internalNFA.endNode);
     return finalNFA;
 }
 
@@ -112,11 +122,11 @@ NFA NFA::constructPositiveClosure(RegExp regExp) {
     NFA internalNFA = constructNFA(regExp.operands[0]);
 
     // connecting the start with start, and end with end
-    finalNFA.startNode.transitions[epsilonTransition].push_back(internalNFA.startNode);
-    internalNFA.endNode.transitions[epsilonTransition].push_back(finalNFA.endNode);
+    finalNFA.startNode->transitions[epsilonTransition].push_back(internalNFA.startNode);
+    internalNFA.endNode->transitions[epsilonTransition].push_back(finalNFA.endNode);
 
     // loop back
-    internalNFA.endNode.transitions[epsilonTransition].push_back(internalNFA.startNode);
+    internalNFA.endNode->transitions[epsilonTransition].push_back(internalNFA.startNode);
 
     return finalNFA;
 }

@@ -15,13 +15,13 @@ int main(int argc, char **argv) {
     string lexicalRulesInputFilePath ="D:\\College\\4th year - 1st semester\\Compilers\\CompilerProject\\rules.txt";
     //RulesParser parser;
     //parser.parseInputFile(lexicalRulesInputFilePath);
-    RegExp test = RegExp::parseRegExp(" a | A");
+    RegExp test = RegExp::parseRegExp(" (A)*");
     vector<std::string> t = test.toString();
         for (auto &it2 : t) {
             cout << it2 << '\n';
         }
         NFA nfa = NFA(test, "testType");
-    NFAConvertor r;
+        NFAConvertor r;
         DFANode te = r.convert(nfa.startNode);
     cout<<"test"<<endl;
 

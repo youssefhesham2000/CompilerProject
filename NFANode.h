@@ -18,7 +18,7 @@ public:
     {
         return (this->id < t.id);
     }
-    std::map<char, std::vector<NFANode>> transitions;
+    std::map<char, std::vector<NFANode*>> transitions;
     int id;
     bool isFinal;
     std::string type; // int, id, num, ...

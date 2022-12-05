@@ -5,11 +5,11 @@
 #include "NFAConvertor.h"
 #include <stack>
 
-DFANode NFAConvertor::convert(NFANode startNode) {
+DFANode NFAConvertor::convert(NFANode* startNode) {
     //Get the first state.
-    std::set<NFANode> firstState = this->getEpsilonClosure(startNode);
+    std::set<NFANode*> firstState = this->getEpsilonClosure(startNode);
     std::vector<char> terminals;
-    std::stack<std::set<NFANode>> stack;
+    std::stack<std::set<NFANode*>> stack;
 
     // Initialize the stack with the first state.
     stack.push(firstState);
@@ -17,27 +17,27 @@ DFANode NFAConvertor::convert(NFANode startNode) {
     int stateCounter = 0;
     DFANode startDfaNode;
     startDfaNode.id = stateCounter;
-    std::set<std::set<NFANode>> visited={};
+    std::set<std::set<NFANode*>> visited={};
     // Add the first state to the state mapper.
     this->stateToDfa.insert({firstState, startDfaNode });
     stateCounter++;
     while (!stack.empty()) {
 
-        std::set<NFANode> tempState = stack.top();
+        std::set<NFANode*> tempState = stack.top();
         visited.insert(tempState);
 
         // Get all the valid inputs (terminals ) to this state.
         for(auto node: tempState) {
-            for(const auto it: node.transitions ) {
+            for(const auto it: node->transitions ) {
                terminals.push_back(it.first);
             }
         }
 
-        std::map<char, std::set<NFANode>> stateCharToStateMap;
+        std::map<char, std::set<NFANode*>> stateCharToStateMap;
 
         for(auto terminal: terminals) {
             if (terminal != epsilonTransition) {
-                std::set<NFANode> nextState = this->move(tempState, terminal);
+                std::set<NFANode*> nextState = this->move(tempState, terminal);
                 stateCharToStateMap.insert({terminal, nextState});
                 stack.pop();
                 if (!visited.count(nextState)) {
@@ -60,9 +60,9 @@ DFANode NFAConvertor::convert(NFANode startNode) {
         }
 
         for(auto iterator: tempState) {
-            if(iterator.isFinal){
+            if(iterator->isFinal){
                 tempDfaNode.isFinal= true;
-                tempDfaNode.type = iterator.type;
+                tempDfaNode.type = iterator->type;
                 // check with loai what is type exactly.
             }
         }
@@ -75,19 +75,19 @@ DFANode NFAConvertor::convert(NFANode startNode) {
 
 }
 
-std::set<NFANode> NFAConvertor::move(std::set<NFANode> nfaNodes, char inputSymbol) {
-    std::vector<std::vector<NFANode>> nextSateNodes;
-    std::set<NFANode> newState = {};
+std::set<NFANode*> NFAConvertor::move(std::set<NFANode*> nfaNodes, char inputSymbol) {
+    std::vector<std::vector<NFANode*>> nextSateNodes;
+    std::set<NFANode*> newState = {};
     // Get the next state(nodes) for each node with the given symbol.
     for (auto node : nfaNodes) {
-        if (node.transitions.count(inputSymbol)){
-            nextSateNodes.push_back(node.transitions.find(inputSymbol)->second);
+        if (node->transitions.count(inputSymbol)){
+            nextSateNodes.push_back(node->transitions.find(inputSymbol)->second);
         }
     }
     //Get the epsilon closure for each node.
     for(auto row: nextSateNodes){
         for(auto col: row){
-            std::set<NFANode> tempSet = this->getEpsilonClosure(col);
+            std::set<NFANode*> tempSet = this->getEpsilonClosure(col);
             // Get union of generated closures.
             for(auto& node: tempSet){
                 newState.insert(node);
@@ -97,27 +97,27 @@ std::set<NFANode> NFAConvertor::move(std::set<NFANode> nfaNodes, char inputSymbo
     return newState;
 }
 
-std::set<NFANode> NFAConvertor::getEpsilonClosure(NFANode nfaNode) {
+std::set<NFANode*> NFAConvertor::getEpsilonClosure(NFANode* nfaNode) {
 
-    std::set<NFANode> epsilonClosure={};
+    std::set<NFANode*> epsilonClosure={};
     epsilonClosure.insert(nfaNode);
-    if (nfaNode.isFinal){
+    if (nfaNode->isFinal){
         return epsilonClosure;
     }
 
-    std::vector<NFANode> nodes = nfaNode.transitions.find(epsilonTransition)->second;
-    std::stack<NFANode> stack;
+    std::vector<NFANode*> nodes = nfaNode->transitions.find(epsilonTransition)->second;
+    std::stack<NFANode*> stack;
 
-    for (NFANode element : nodes) {
+    for (NFANode* element : nodes) {
         epsilonClosure.insert(element);
         stack.push(element);
     }
     while (!stack.empty()){
-        NFANode tempNode = stack.top();
-        if (tempNode.transitions.count(epsilonTransition)){
-            std::vector<NFANode> tempNodes = tempNode.transitions.find(epsilonTransition)->second;
+        NFANode* tempNode = stack.top();
+        if (tempNode->transitions.count(epsilonTransition)){
+            std::vector<NFANode*> tempNodes = tempNode->transitions.find(epsilonTransition)->second;
 
-            for (NFANode element : tempNodes) {
+            for (NFANode* element : tempNodes) {
                 // Check if the node is already visited.
                 auto it = epsilonClosure.find(element);
                 if (it != epsilonClosure.end()){

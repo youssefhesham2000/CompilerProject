@@ -28,10 +28,10 @@ private:
 public:
     NFA(RegExp regExp, std::string type);
 
-    NFANode startNode;
+    NFANode* startNode = new NFANode();
     // used to mark the end of the machine, used for the thompson construction operations.
     // isFinal + type on each NFANode will mark what kind of token it accepts.
-    NFANode endNode;
+    NFANode* endNode =new NFANode();
 
 };
 
