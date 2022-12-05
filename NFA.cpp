@@ -3,6 +3,7 @@
 //
 
 #include <cassert>
+#include <stdexcept>
 #include "NFA.h"
 #include "NFANode.h"
 

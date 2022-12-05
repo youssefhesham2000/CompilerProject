@@ -16,7 +16,8 @@ class NFAConvertor {
 private:
 
     // Map of epsilon closure into DFA states.
-    std::map<std::set<NFANode>, DFANode> epsilonClosureToDfa;
+    std::map<std::set<NFANode>, DFANode> stateToDfa;
+
     /**
      *
      * @param nfaNode NFANode
@@ -30,13 +31,13 @@ private:
      * @param in char
      * @return Returns the new state of the NFANodes.
      */
-    std::set<NFANode> move(std::set<NFANode> nfaNodes , char in);
+    std::set<NFANode> move(std::set<NFANode> nfaNodes , char inputSymbol);
 
 public:
     /**
      *
      * @param startNode  :NFANode
-     * @return DFANode: returns the initial state  the DFA to be constructed in using DFA constructor.
+     * @return DFANode: returns the initial state of the DFA to be constructed in using DFA constructor.
      */
     DFANode convert(NFANode startNode);
 };

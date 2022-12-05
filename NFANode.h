@@ -13,7 +13,11 @@ const char epsilonTransition = '\0';
 class NFANode {
 
 public:
-
+    // Added in order to make set.insert work as it require operator in the user defined objects
+    bool operator<(const NFANode& t) const
+    {
+        return (this->id < t.id);
+    }
     std::map<char, std::vector<NFANode>> transitions;
     int id;
     bool isFinal;
