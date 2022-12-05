@@ -3,4 +3,4 @@ project(CompilerProject)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(CompilerProject main.cpp RulesParser.h RulesParser.cpp Pattern.cpp Pattern.h DFA.cpp DFANode.h TransitionTable.cpp TransitionTable.h Token.cpp Token.h Minimizer.cpp Minimizer.h RegExp.cpp RegExp.h StringUtils.h StringUtils.cpp NFANode.cpp NFANode.h NFA.cpp NFA.h NFAConvertor.cpp NFAConvertor.h)
+add_executable(CompilerProject main.cpp RulesParser.h RulesParser.cpp Pattern.cpp Pattern.h DFA.cpp DFANode.h TransitionTable.cpp TransitionTable.h Token.cpp Token.h Minimizer.cpp Minimizer.h RegExp.cpp RegExp.h StringUtils.h StringUtils.cpp NFANode.cpp NFANode.h NFA.cpp NFA.h NFAConvertor.cpp NFAConvertor.h RegExpGenerator.cpp RegExpGenerator.h)

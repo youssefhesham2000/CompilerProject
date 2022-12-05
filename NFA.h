@@ -26,7 +26,10 @@ private:
 
 
 public:
+
     NFA(RegExp regExp, std::string type);
+
+    static NFA constructCombinedNFA(std::vector<NFA> NFAs);
 
     NFANode* startNode = new NFANode();
     // used to mark the end of the machine, used for the thompson construction operations.

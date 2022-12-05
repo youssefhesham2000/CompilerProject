@@ -21,7 +21,6 @@ NFA::NFA(RegExp regExp, std::string type) {
     endNode->isFinal = true;
     endNode->type = type;
 }
-
 /**
  * Creates an NFA but all the nodes are non final
  * Used for generating intermediate NFAs that don't map to final token
@@ -49,18 +48,23 @@ NFA NFA::constructNFA(RegExp regExp){
     }
 }
 
+/**
+ *
+ * @param NFAs : vector<NFA> vector of the wanted NFAs to be combined
+ * @return NFA: returns a combined NFA.
+ */
+NFA NFA::constructCombinedNFA(std::vector<NFA> NFAs) {
+    NFA combinedNFA;
+    // loop over the NFAs and add an epsilon transition from the combinedNFA to the start node of each.
+    for(auto& nfa: NFAs) {
+        combinedNFA.startNode->transitions[epsilonTransition].push_back(nfa.startNode);
+    }
+    return combinedNFA;
+}
+
 
 NFA::NFA(char c){
-    startNode->transitions.size();
-    if(startNode->transitions.count(c)){
-        startNode->transitions[c].push_back(endNode);
-    }
-    else {
-        std::vector<NFANode*> temp;
-        temp.push_back(endNode);
-        startNode->transitions.insert({c, temp});
-    }
-
+    startNode->transitions[c].push_back(endNode);
 }
 
 // THOMPSON CONSTRUCTION HELPERS

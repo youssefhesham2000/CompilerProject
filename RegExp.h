@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
-
+#include "map"
 #ifndef COMPILERPROJECT_REGEXP_H
 #define COMPILERPROJECT_REGEXP_H
 
@@ -23,13 +23,14 @@ private:
 
 //private: public for testing purposes
 public:
-    // marking these as static to separate them from the class variables
-    static RegExp parseRegExp(std::string str);
     static RegExp epsilon(){
         RegExp regExp;
         regExp.type = RegExpType::epsilon;
         return regExp;
     };
+    // marking these as static to separate them from the class variables
+    // use RegExpGenerator::generateAllExpressions for the creation of the RegExps.
+     static RegExp parseRegExp(std::string str);
 
     static RegExp parsePunctuations(std::string str);
     static RegExp parseKeyWord(std::string str);
