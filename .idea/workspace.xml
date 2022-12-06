@@ -17,7 +17,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8beb4a07-316b-4d2b-9bc4-98bf195b77c0" name="Changes" comment="Fix concatenation bug">
+    <list default="true" id="8beb4a07-316b-4d2b-9bc4-98bf195b77c0" name="Changes" comment="Fix accept bug, recognizing dead states">
+      <change beforePath="$PROJECT_DIR$/DFA.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/DFA.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rules.txt" afterDir="false" />
     </list>
@@ -120,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670366103369</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fix accept bug, recognizing dead states">
+      <created>1670366605990</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1670366605990</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,7 +151,8 @@
     <MESSAGE value="Subset construction that terminates.&#10;I commented out all other code that makes the build fail." />
     <MESSAGE value="Added print NFA transition table for debugging" />
     <MESSAGE value="Fix concatenation bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix concatenation bug" />
+    <MESSAGE value="Fix accept bug, recognizing dead states" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix accept bug, recognizing dead states" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

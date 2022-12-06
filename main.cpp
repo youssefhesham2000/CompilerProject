@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
 
     DFANode* dfaNode = SubsetConstructor::construct(combinedNfa);
     DFA dfa(dfaNode);
-    auto res = dfa.accept("10 bb10101");
+    auto res = dfa.accept("int aab , bba , b10 , a; while (bb !=10){bb =bb +1;}");
     for (auto token: res) {
         cout << token.type << " " << token.value << endl;
     }
