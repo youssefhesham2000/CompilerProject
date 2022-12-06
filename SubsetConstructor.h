@@ -8,8 +8,8 @@
 
 #include <set>
 #include <queue>
-#include "DFA.h"
 #include "NFA.h"
+#include "DFANode.h"
 
 using NodeSet = std::set<NFANode*>;
 class SubsetConstructor {
@@ -17,7 +17,7 @@ class SubsetConstructor {
     static NodeSet getKleeneClosure(std::set<NFANode *> start);
 
 public:
-    DFA construct(NFA nfa);
+    static DFANode* construct(NFA nfa);
 
 
 };

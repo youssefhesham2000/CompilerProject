@@ -2,6 +2,7 @@
 // Created by Abdallah on 12/6/2022.
 //
 
+#include <iostream>
 #include "SubsetConstructor.h"
 
 
@@ -9,6 +10,7 @@ NodeSet SubsetConstructor::getKleeneClosure(NFANode* start){
     std::queue<NFANode*> q;
     NodeSet result;
     q.push(start);
+    result.insert(start);
     while(!q.empty()) {
         NFANode* node = q.front();q.pop();
 
@@ -31,7 +33,7 @@ NodeSet SubsetConstructor::getKleeneClosure(NodeSet start){
     return result;
 }
 
-DFA SubsetConstructor::construct(NFA nfa){
+DFANode* SubsetConstructor::construct(NFA nfa){
     // counts the number of sets found, for utility
     int counter = 0;
 
@@ -45,7 +47,6 @@ DFA SubsetConstructor::construct(NFA nfa){
 
     while(!q.empty()){
         auto s = q.front(); q.pop();
-
         /*
             for every node in the set
                 for every transition this node has
@@ -64,7 +65,7 @@ DFA SubsetConstructor::construct(NFA nfa){
         }
 
         // Check if we have formed a new set and push it to the queue
-        for (auto& x: transitionTable[s]) {
+        for (auto x: transitionTable[s]) {
             NodeSet n = x.second;
             if (transitionTable.find(n) == transitionTable.end()){
                 q.push(n);
@@ -72,6 +73,41 @@ DFA SubsetConstructor::construct(NFA nfa){
         }
     }
 
-    // TODO: convert the transitionTable to DFANodes and connect them to each other
-    throw std::runtime_error("Not implemented");
+    std::map<NodeSet, DFANode*> setToNode;
+
+    // Create a DFANode for each NodeSet
+    int id = 0;
+    for (auto row: transitionTable) {
+        DFANode* node = new DFANode();
+        node->id = id++;
+
+        NodeSet nodeSet = row.first;
+        for (NFANode* n: nodeSet){
+            if (n->isFinal){
+                node->type = n->type;
+                node->isFinal = true;
+                break;
+            }
+        }
+
+
+        setToNode[row.first] = node;
+    }
+
+    // Connect the DFANodes with each other
+    for (auto row: transitionTable) {
+        DFANode* src = setToNode[row.first];
+        for (auto transition: row.second) {
+            char c = transition.first;
+            DFANode* dest = setToNode[transition.second];
+
+            src->transitions[c] = dest;
+        }
+    }
+
+
+    DFANode* startNode = setToNode[initKleeneClosure];
+    return startNode;
 }
+
+

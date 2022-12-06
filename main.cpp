@@ -5,6 +5,7 @@
 #include "NFAConvertor.h"
 #include "DFANode.h"
 #include "RegExpGenerator.h"
+#include "SubsetConstructor.h"
 using namespace std;
 
 
@@ -20,6 +21,13 @@ int main(int argc, char **argv) {
     map<string, RegExp> parsedRegExp = generator.generateAllExpressions(parser);
     RegExp temp = parsedRegExp["id"];
     NFA combinedNfa = NFA::constructCombinedNFA(parsedRegExp);
+    for (auto entry: parsedRegExp){
+        std::cout << "Construction of: " << entry.first << std::endl;
+        DFANode* dfaNode = SubsetConstructor::construct(NFA(entry.second, entry.first));
+    }
+
+    std::cout << "Construction of combined NFA " << std::endl;
+    DFANode* dfaNode = SubsetConstructor::construct(combinedNfa);
 
     cout<<"test"<<endl;
 
