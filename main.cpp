@@ -13,13 +13,14 @@ int main(int argc, char **argv) {
     // Use the run configuration "Run on rules.txt"
     //string lexicalRulesInputFilePath = argv[1];
 
-    string lexicalRulesInputFilePath ="D:\\rules.txt";
+    string lexicalRulesInputFilePath ="D:\\College\\4th year - 1st semester\\Compilers\\CompilerProject\\rules.txt";
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
     RegExpGenerator generator = RegExpGenerator(parser.regularDefinitions);
     map<string, RegExp> parsedRegExp = generator.generateAllExpressions(parser);
     RegExp temp = parsedRegExp["id"];
     NFA combinedNfa = NFA::constructCombinedNFA(parsedRegExp);
+
     cout<<"test"<<endl;
 
 
