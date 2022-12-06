@@ -26,15 +26,14 @@ int main(int argc, char **argv) {
         std::cout << "Construction of: " << entry.first << std::endl;
         NFA nfa(entry.second, entry.first);
         //nfa.print();
-        DFANode* dfaNode = SubsetConstructor::construct(nfa);
-
-        DFA dfa(dfaNode);
-        auto res = dfa.accept("c111122122100");
-        for (auto token: res){
-            cout << token.type << " " << token.value  << endl;
-        }
     }
 
+    DFANode* dfaNode = SubsetConstructor::construct(combinedNfa);
+    DFA dfa(dfaNode);
+    auto res = dfa.accept("10 bb10101");
+    for (auto token: res) {
+        cout << token.type << " " << token.value << endl;
+    }
 
     cout<<"test"<<endl;
 

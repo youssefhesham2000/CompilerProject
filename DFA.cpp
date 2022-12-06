@@ -36,7 +36,7 @@ std::vector<Token> DFA::accept(std::string str) {
     Token lastAcceptedToken;
 
     for(int i=0; i<=str.length(); i++){
-        if(i == str.length() || table.find(currentState->id) == table.end()) { // No more states to go to / dead state
+        if(i == str.length() || currentState->transitions[str[i]] == nullptr) { // No more states to go to / dead state
             if(lastAcceptedState == nullptr) { // Never seen an accepted state, start error recovery mode
                 return accept(str.substr(1)); //Panic mode
             }
