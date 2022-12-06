@@ -37,11 +37,7 @@ RegExpGenerator::RegExpGenerator(std::vector<RulesParser::RegularLine> regularDe
  */
 map<std::string,RegExp>RegExpGenerator::generateAllExpressions(RulesParser parser) {
     map<std::string, RegExp> parsedRegExp;
-
-    //Add regular definitions to the map.
-    for(auto item: regularDefinitionsToRegExp) {
-        parsedRegExp.insert({item.first, item.second});
-    }
+    
     // parse regular expression first.
     for (auto item: parser.regularExpressions) {
         RegExp currentRegExp = RegExp::parseRegExp(item.RHS, this->regularDefinitionsToRegExp);
