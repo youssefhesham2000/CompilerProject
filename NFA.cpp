@@ -4,6 +4,9 @@
 
 #include <cassert>
 #include <stdexcept>
+#include <set>
+#include <queue>
+#include <iostream>
 #include "NFA.h"
 #include "NFANode.h"
 
@@ -139,4 +142,60 @@ NFA NFA::constructPositiveClosure(RegExp regExp) {
 
     return finalNFA;
 }
+
+void printVector(std::vector<NFANode*> vec) {
+    std::cout << "{";
+    for (auto node: vec)
+        std::cout << node << ",";
+    std::cout << "}";
+}
+
+void NFA::print() {
+    std::map<NFANode*, std::map<char, std::vector<NFANode*>>> table;
+
+    std::set<char> characters;
+    std::set<NFANode*> visited;
+    std::queue<NFANode*> q;
+
+    q.push(startNode);
+    while(!q.empty()) {
+        NFANode* node = q.front(); q.pop();
+
+        if (visited.count(node) != 0)
+            continue;
+        visited.insert(node);
+
+        for (auto transition: node->transitions) {
+            char c = transition.first;
+            characters.insert(c);
+            for (NFANode* neighbour: transition.second){
+                table[node][c].push_back(neighbour);
+                q.push(neighbour);
+            }
+        }
+    }
+
+//    std::cout << "\t\t";
+//    for (char c: characters)
+//        std::cout << c << "\t\t";
+//    std::cout << "\n";
+
+    for (auto row: table) {
+        std::cout << row.first;
+        if (row.first->isFinal)
+            std::cout << " (F): " << row.first->type;
+        if (row.first == startNode)
+            std::cout << " (S)";
+        std::cout << "\t\t";
+        for (char c: characters) {
+            std::cout << c << ":";
+            printVector(table[row.first][c]);
+            std::cout << "\t";
+        }
+        std::cout << "\n";
+    }
+
+}
+
+
 

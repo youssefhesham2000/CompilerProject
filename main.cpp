@@ -6,6 +6,8 @@
 #include "DFANode.h"
 #include "RegExpGenerator.h"
 #include "SubsetConstructor.h"
+#include "DFA.h"
+
 using namespace std;
 
 
@@ -19,15 +21,20 @@ int main(int argc, char **argv) {
     parser.parseInputFile(lexicalRulesInputFilePath);
     RegExpGenerator generator = RegExpGenerator(parser.regularDefinitions);
     map<string, RegExp> parsedRegExp = generator.generateAllExpressions(parser);
-    RegExp temp = parsedRegExp["id"];
     NFA combinedNfa = NFA::constructCombinedNFA(parsedRegExp);
     for (auto entry: parsedRegExp){
         std::cout << "Construction of: " << entry.first << std::endl;
-        DFANode* dfaNode = SubsetConstructor::construct(NFA(entry.second, entry.first));
+        NFA nfa(entry.second, entry.first);
+        nfa.print();
+//        DFANode* dfaNode = SubsetConstructor::construct(nfa);
+//
+//        DFA dfa(dfaNode);
+//        auto res = dfa.accept("a100");
+//        for (auto token: res){
+//            cout << token.type << " " << token.value  << endl;
+//        }
     }
 
-    std::cout << "Construction of combined NFA " << std::endl;
-    DFANode* dfaNode = SubsetConstructor::construct(combinedNfa);
 
     cout<<"test"<<endl;
 

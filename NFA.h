@@ -36,6 +36,8 @@ public:
     // isFinal + type on each NFANode will mark what kind of token it accepts.
     NFANode* endNode =new NFANode();
 
+    void print();
+
 };
 
 
