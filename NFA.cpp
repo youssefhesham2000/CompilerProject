@@ -81,14 +81,21 @@ NFA NFA::constructConcatenation(RegExp regExp){
     assert(regExp.type == RegExpType::concatenation);
 
     // first operand
-    NFA combinedNFA = constructNFA(regExp.operands[0]);
+    NFA initNFA = constructNFA(regExp.operands[0]);
+    NFANode* startNode = initNFA.startNode;
+    NFANode* lastEndNode = initNFA.endNode;
 
     // remaining operands
     for (int i = 1;i < regExp.operands.size();i++) {
         NFA nfa = constructNFA(regExp.operands[i]);
-        combinedNFA.endNode->transitions[epsilonTransition].push_back(nfa.startNode);
+        lastEndNode->transitions[epsilonTransition].push_back(nfa.startNode);
+        lastEndNode = nfa.endNode;
     }
-    return combinedNFA;
+
+    NFA nfa;
+    nfa.startNode = startNode;
+    nfa.endNode = lastEndNode;
+    return nfa;
 }
 
 NFA NFA::constructDisjunction(RegExp regExp){
@@ -180,16 +187,17 @@ void NFA::print() {
 //        std::cout << c << "\t\t";
 //    std::cout << "\n";
 
-    for (auto row: table) {
-        std::cout << row.first;
-        if (row.first->isFinal)
-            std::cout << " (F): " << row.first->type;
-        if (row.first == startNode)
+    for (auto node: visited) {
+        std::cout << node;
+        if (node->isFinal)
+            std::cout << " (F): " << node->type;
+        if (node == startNode)
             std::cout << " (S)";
         std::cout << "\t\t";
+
         for (char c: characters) {
             std::cout << c << ":";
-            printVector(table[row.first][c]);
+            printVector(table[node][c]);
             std::cout << "\t";
         }
         std::cout << "\n";

@@ -17,14 +17,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8beb4a07-316b-4d2b-9bc4-98bf195b77c0" name="Changes" comment="Subset construction that terminates.&#10;I commented out all other code that makes the build fail.">
+    <list default="true" id="8beb4a07-316b-4d2b-9bc4-98bf195b77c0" name="Changes" comment="Added print NFA transition table for debugging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DFA.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/DFA.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DFA.h" beforeDir="false" afterPath="$PROJECT_DIR$/DFA.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NFA.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/NFA.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NFA.h" beforeDir="false" afterPath="$PROJECT_DIR$/NFA.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransitionTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/TransitionTable.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransitionTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/TransitionTable.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rules.txt" afterDir="false" />
     </list>
@@ -113,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670356185680</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added print NFA transition table for debugging">
+      <created>1670359799126</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1670359799126</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,7 +136,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix type" />
     <MESSAGE value="Subset construction that terminates.&#10;I commented out all other code that makes the build fail." />
-    <option name="LAST_COMMIT_MESSAGE" value="Subset construction that terminates.&#10;I commented out all other code that makes the build fail." />
+    <MESSAGE value="Added print NFA transition table for debugging" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added print NFA transition table for debugging" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -145,15 +148,16 @@
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>26</line>
-          <option name="timeStamp" value="27" />
+          <url>file://$PROJECT_DIR$/NFA.cpp</url>
+          <line>189</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="combinedNfa.startNode" />
+        <watch expression="nfa.startNode-&gt;transitions" />
       </configuration>
     </watches-manager>
   </component>
