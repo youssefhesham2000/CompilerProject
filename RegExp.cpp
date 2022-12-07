@@ -8,10 +8,13 @@
 #include "StringUtils.h"
 
 
-RegExp RegExp::parseRegExp(std::string str) {
+RegExp RegExp::parseRegExp(std::string str, std::map<std::string, RegExp> regularDefinitionsToRegExp) {
     str = StringUtils::removeLeadingAndTrailingSpaces(str);
     str = StringUtils::removeEnclosingBrackets(str);
-
+    // if the current str exist in the RegDefinition map then we return the already evaluated RegExp.
+    if (regularDefinitionsToRegExp.count(str)){
+        return regularDefinitionsToRegExp[str];
+    }
     std::vector<RegExp> operands;
     RegExpType type;
 
@@ -32,7 +35,7 @@ RegExp RegExp::parseRegExp(std::string str) {
     if (disjunctionOperands.size() > 1){
         type = RegExpType::disjunction;
         for (const auto& operand: disjunctionOperands) {
-            operands.push_back(parseRegExp(operand));
+            operands.push_back(parseRegExp(operand, regularDefinitionsToRegExp));
         }
 
         return RegExp(operands, type);
@@ -43,7 +46,7 @@ RegExp RegExp::parseRegExp(std::string str) {
     if (concatenationOperands.size() > 1){
         type = RegExpType::concatenation;
         for (const auto& operand: concatenationOperands) {
-            operands.push_back(parseRegExp(operand));
+            operands.push_back(parseRegExp(operand, regularDefinitionsToRegExp));
         }
         return RegExp(operands, type);
     }
@@ -56,7 +59,7 @@ RegExp RegExp::parseRegExp(std::string str) {
             type = RegExpType::positiveClosure;
         else if (closureType == "*")
             type = RegExpType::kleeneClosure;
-        operands.push_back(parseRegExp(closureOperands.front()));
+        operands.push_back(parseRegExp(closureOperands.front(), regularDefinitionsToRegExp));
         return RegExp(operands, type);
     }
 
@@ -65,7 +68,7 @@ RegExp RegExp::parseRegExp(std::string str) {
     if (rangeOperands.size() > 1) {
         type = RegExpType::range;
         for (const auto& operand: rangeOperands) {
-            operands.push_back(parseRegExp(operand));
+            operands.push_back(parseRegExp(operand, regularDefinitionsToRegExp));
         }
         return RegExp(operands, type);
     }
@@ -182,21 +185,21 @@ std::vector<std::string> RegExp::getRange(std::string str) {
     return rangeOperands;
 }
 
-RegExp RegExp::parseKeyWord(std::string str) {
+RegExp RegExp::parseKeyWord(std::string str, std::map<std::string, RegExp> regularDefinitionsToRegExp) {
     std::string temp = StringUtils::removeLeadingAndTrailingSpaces(str);
     std::vector<RegExp> operands;
     RegExpType type =RegExpType::concatenation;
     for(int i = 0; i < temp.length(); i++) {
-        operands.push_back(parseRegExp(std::string(1, temp[i])));
+        operands.push_back(parseRegExp(std::string(1, temp[i]), regularDefinitionsToRegExp));
     }
     return RegExp(operands,type);
 }
 
-RegExp RegExp::parsePunctuations(std::string str) {
+RegExp RegExp::parsePunctuations(std::string str, std::map<std::string, RegExp> regularDefinitionsToRegExp) {
     str = StringUtils::removeLeadingAndTrailingSpaces(str);
     if (str.length()>1)
         throw std::invalid_argument(str);
-    return parseRegExp(str);
+    return parseRegExp(str, regularDefinitionsToRegExp);
 }
 
 std::vector<std::string> RegExp::toString() {

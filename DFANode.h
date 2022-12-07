@@ -7,7 +7,7 @@
 class DFANode{
 private:
 public:
-    std::map<char, DFANode> transitions;
+    std::map<char, DFANode*> transitions;
     int id;
     bool isFinal;
     std::string type;

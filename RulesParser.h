@@ -12,17 +12,18 @@ using namespace std;
 
 
 class RulesParser {
+public:
     struct RegularLine {
         string LHS;
         string RHS;
     };
-public:
     vector<string> keyWords;
     vector<string> punctuation;
     vector<RegularLine> regularDefinitions;
     vector<RegularLine> regularExpressions;
     static std::map<std::string, RegExp> regularDefinitionsMap;
     int parseInputFile(string path);
+
 
 private:
     int getLineType(string line);

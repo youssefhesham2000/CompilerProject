@@ -1,7 +1,7 @@
-letter = a-z | A-Z
-digit = 0-9
+letter = a-b | A-B
+digit = 0-1
 id: letter (letter|digit)*
-digits = digit+
+digits: digit+
 {boolean int float}
 num: digit+ | digit+ . digits ( \L | E digits)
 relop: \=\= | !\= | > | >\= | < | <\=

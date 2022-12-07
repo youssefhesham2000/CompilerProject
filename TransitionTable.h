@@ -6,8 +6,9 @@
 class TransitionTable {
 private:
 public:
-    void addState(const DFANode& node);
+    void addState(DFANode* node);
     std::map<int, std::map<char, int>> table;
+    void print();
 };
 
 #endif //COMPILERPROJECT_TRANSITIONTABLE_H

@@ -92,15 +92,15 @@ int RulesParser::parseInputFile(string path) {
     }
     reInputFile.close();
 
-    for (RegularLine line: regularDefinitions) {
-        RegExp regExp = RegExp::parseRegExp(line.RHS);
-        regularDefinitionsMap[line.LHS] = regExp;
-    }
-
-    for (RegularLine line: regularExpressions) {
-        RegExp regExp = RegExp::parseRegExp(line.RHS);
-        regularDefinitionsMap[line.LHS] = regExp;
-    }
+//    for (RegularLine line: regularDefinitions) {
+//        RegExp regExp = RegExp::parseRegExp(line.RHS);
+//        regularDefinitionsMap[line.LHS] = regExp;
+//    }
+//
+//    for (RegularLine line: regularExpressions) {
+//        RegExp regExp = RegExp::parseRegExp(line.RHS);
+//        regularDefinitionsMap[line.LHS] = regExp;
+//    }
 
     if (!DEBUG)
         return 0;
