@@ -46,6 +46,8 @@ void Minimizer::dfs(int nodeId){
             node[successorId]->isFinal = isFinal[successorId];
             node[successorId]->type = type[successorId];
             dfs(successorId);
+            DFANode* successorNode = node[successorId];
+            currentNode->transitions[c] = successorNode;
         }
     }
 }
