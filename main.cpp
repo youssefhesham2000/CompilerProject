@@ -7,6 +7,7 @@
 #include "RegExpGenerator.h"
 #include "SubsetConstructor.h"
 #include "DFA.h"
+#include "Minimizer.h"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ int main(int argc, char **argv) {
     // Use the run configuration "Run on rules.txt"
     //string lexicalRulesInputFilePath = argv[1];
 
-    string lexicalRulesInputFilePath ="D:\\College\\4th year - 1st semester\\Compilers\\CompilerProject\\rules.txt";
+    string lexicalRulesInputFilePath ="C:\\Users\\v-louaiali\\CLionProjects\\CompilerProject\\rules.txt";
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
     RegExpGenerator generator = RegExpGenerator(parser.regularDefinitions);
@@ -30,7 +31,9 @@ int main(int argc, char **argv) {
 
     DFANode* dfaNode = SubsetConstructor::construct(combinedNfa);
     DFA dfa(dfaNode);
-    auto res = dfa.accept("int aab , bba , b10 , a; while (bb !=10){bb =bb +1;}");
+    DFA* minimizedDFA = (new Minimizer())->minimize(&dfa);
+    auto res = minimizedDFA->accept("int aab , bba , b10 , a; while (bb !=10){bb =bb +1;}");
+    //    auto res = dfa.accept("int aab , bba , b10 , a; while (bb !=10){bb =bb +1;}");
     for (auto token: res) {
         cout << token.type << " " << token.value << endl;
     }
