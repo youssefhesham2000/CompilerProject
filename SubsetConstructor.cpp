@@ -60,7 +60,7 @@ void addTransitionHelper(NodeSet& from, const Pattern& p, NodeSet& to, std::map<
 
 DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
 
-    std::map<NodeSet, std::vector<pair<Pattern, NodeSet>>> transitionTable;
+    std::map<NodeSet, std::map<char, NodeSet>> transitionTable;
     std::queue<NodeSet> q;
 
 
@@ -81,7 +81,10 @@ DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
                 Pattern p = transitions.first;
 
                 auto closure = getKleeneClosure(NodeSet(transitions.second.begin(), transitions.second.end()));
-                addTransitionHelper(s, p, closure, transitionTable);
+
+                for (char c: p.getMatches()) {
+                    transitionTable[s][c].insert(closure.begin(), closure.end());
+                }
             }
         }
 
@@ -97,6 +100,7 @@ DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
     std::map<NodeSet, DFANode*> setToNode;
 
     // Create a DFANode for each NodeSet
+    std::unordered_set<string> keywords(parser.keyWords.begin(), parser.keyWords.end());
     int id = 0;
     for (auto row: transitionTable) {
         DFANode* node = new DFANode();
@@ -105,6 +109,7 @@ DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
         NodeSet nodeSet = row.first;
         for (NFANode* n: nodeSet){
             if (n->isFinal){
+                if (node->type == "" || keywords.count(n->type))
                 node->type = n->type;
                 node->isFinal = true;
             }
@@ -116,11 +121,9 @@ DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
     for (auto row: transitionTable) {
         DFANode* src = setToNode[row.first];
         for (auto transition: row.second) {
-            Pattern p = transition.first;
+            char c = transition.first;
             DFANode* dest = setToNode[transition.second];
-            for (char c : p.getMatches()) {
-                src->transitions[c] = dest;
-            }
+            src->transitions[c] = dest;
         }
     }
 
