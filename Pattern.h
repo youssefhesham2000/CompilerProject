@@ -19,17 +19,21 @@ class Pattern {
 public:
     //for epsilon pattern.
     Pattern();
-    Pattern(string pattern);
-    //returns true if the pattern is epsilon.
-    bool isPatternEpsilon();
-    bool isPatternContains(char character);
-    string getPattern();
+    explicit Pattern(char c);
+    explicit Pattern(char start, char end);
+    bool isEpsilon() const;
+    bool match(char character);
+    bool operator== (const Pattern) const;
+    bool operator< (const Pattern) const;
+    string print();
+    std::vector<char> getMatches();
+
 private:
-    bool isEpsilon;
-    // indicates if the pattern is range or a specific char.
-    bool isRange;
+    bool epsilon;
+    bool range;
     string pattern;
-    vector<array<char,2>> getRanges();
+    pair<char, char> getRange() const;
+
 
 };
 

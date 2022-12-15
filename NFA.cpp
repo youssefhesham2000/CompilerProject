@@ -18,6 +18,10 @@
  * @param type name of the token it accepts e.g. id, num, digits
  */
 NFA::NFA(RegExp regExp, std::string type) {
+//    cout << type << " :" << endl;
+//    for (string line: regExp.toString())
+//        cout << line << endl;
+//    cout << "----------------------------------------\n";
     NFA nfa = constructNFA(regExp);
     startNode = nfa.startNode;
     endNode = nfa.endNode;
@@ -41,7 +45,7 @@ NFA NFA::constructNFA(RegExp regExp){
         case disjunction:
             return constructDisjunction(regExp);
         case range:
-            return constructDisjunction(regExp);
+            return constructRange(regExp);
         case kleeneClosure:
             return constructKleeneClosure(regExp);
         case positiveClosure:
@@ -62,17 +66,21 @@ NFA NFA::constructCombinedNFA(std::map<std::string,RegExp> parsedRegExp) {
         NFA tempNfa = NFA(item.second, item.first);
         NFAs.push_back(tempNfa);
     }
+
     NFA combinedNFA;
     // loop over the NFAs and add an epsilon transition from the combinedNFA to the start node of each.
+    std::vector<NFANode*> startNodes;
     for(auto& nfa: NFAs) {
-        combinedNFA.startNode->transitions[epsilonTransition].push_back(nfa.startNode);
+        startNodes.push_back(nfa.startNode);
     }
+
+    combinedNFA.startNode->addTransition(Pattern(), startNodes);
     return combinedNFA;
 }
 
 
 NFA::NFA(char c){
-    startNode->transitions[c].push_back(endNode);
+    startNode->addTransition(Pattern(c), std::vector<NFANode*>{endNode});
 }
 
 // THOMPSON CONSTRUCTION HELPERS
@@ -88,7 +96,7 @@ NFA NFA::constructConcatenation(RegExp regExp){
     // remaining operands
     for (int i = 1;i < regExp.operands.size();i++) {
         NFA nfa = constructNFA(regExp.operands[i]);
-        lastEndNode->transitions[epsilonTransition].push_back(nfa.startNode);
+        lastEndNode->addTransition(Pattern(), std::vector<NFANode*>{nfa.startNode});
         lastEndNode = nfa.endNode;
     }
 
@@ -99,18 +107,28 @@ NFA NFA::constructConcatenation(RegExp regExp){
 }
 
 NFA NFA::constructDisjunction(RegExp regExp){
-    assert(regExp.type == RegExpType::disjunction || regExp.type == RegExpType::range);
+    assert(regExp.type == RegExpType::disjunction);
 
     NFA combinedNFA;
 
     for (RegExp operand: regExp.operands) {
         NFA nfa = constructNFA(operand);
 
-        combinedNFA.startNode->transitions[epsilonTransition].push_back(nfa.startNode);
+        combinedNFA.startNode->addTransition(Pattern(), nfa.startNode);
 
-        nfa.endNode->transitions[epsilonTransition].push_back(combinedNFA.endNode);
+        nfa.endNode->addTransition(Pattern(), combinedNFA.endNode);
     }
 
+    return combinedNFA;
+}
+
+
+NFA NFA::constructRange(RegExp regExp){
+    assert(regExp.type == RegExpType::range);
+    Pattern p(regExp.operands.front().terminal, regExp.operands.back().terminal);
+
+    NFA combinedNFA;
+    combinedNFA.startNode->addTransition(p, combinedNFA.endNode);
     return combinedNFA;
 }
 
@@ -122,14 +140,14 @@ NFA NFA::constructKleeneClosure(RegExp regExp){
     NFA internalNFA = constructNFA(regExp.operands[0]);
 
     // connecting the start with start, and end with end
-    finalNFA.startNode->transitions[epsilonTransition].push_back(internalNFA.startNode);
-    internalNFA.endNode->transitions[epsilonTransition].push_back(finalNFA.endNode);
+    finalNFA.startNode->addTransition(Pattern(), internalNFA.startNode);
+    internalNFA.endNode->addTransition(Pattern(), finalNFA.endNode);
 
     // loop back
-    internalNFA.endNode->transitions[epsilonTransition].push_back(internalNFA.startNode);
+    internalNFA.endNode->addTransition(Pattern(), internalNFA.startNode);
 
     // skip transition
-    finalNFA.startNode->transitions[epsilonTransition].push_back(internalNFA.endNode);
+    finalNFA.startNode->addTransition(Pattern(), internalNFA.endNode);
     return finalNFA;
 }
 
@@ -141,11 +159,11 @@ NFA NFA::constructPositiveClosure(RegExp regExp) {
     NFA internalNFA = constructNFA(regExp.operands[0]);
 
     // connecting the start with start, and end with end
-    finalNFA.startNode->transitions[epsilonTransition].push_back(internalNFA.startNode);
-    internalNFA.endNode->transitions[epsilonTransition].push_back(finalNFA.endNode);
+    finalNFA.startNode->addTransition(Pattern(), internalNFA.startNode);
+    internalNFA.endNode->addTransition(Pattern(), finalNFA.endNode);
 
     // loop back
-    internalNFA.endNode->transitions[epsilonTransition].push_back(internalNFA.startNode);
+    internalNFA.endNode->addTransition(Pattern(), internalNFA.startNode);
 
     return finalNFA;
 }
@@ -158,12 +176,8 @@ void printVector(std::vector<NFANode*> vec) {
 }
 
 void NFA::print() {
-    std::map<NFANode*, std::map<char, std::vector<NFANode*>>> table;
-
-    std::set<char> characters;
     std::set<NFANode*> visited;
     std::queue<NFANode*> q;
-
     q.push(startNode);
     while(!q.empty()) {
         NFANode* node = q.front(); q.pop();
@@ -173,10 +187,7 @@ void NFA::print() {
         visited.insert(node);
 
         for (auto transition: node->transitions) {
-            char c = transition.first;
-            characters.insert(c);
             for (NFANode* neighbour: transition.second){
-                table[node][c].push_back(neighbour);
                 q.push(neighbour);
             }
         }
@@ -195,9 +206,10 @@ void NFA::print() {
             std::cout << " (S)";
         std::cout << "\t\t";
 
-        for (char c: characters) {
-            std::cout << c << ":";
-            printVector(table[node][c]);
+        for (auto transitions: node->transitions) {
+            Pattern p = transitions.first;
+            std::cout << p.print() << ":";
+            printVector(transitions.second);
             std::cout << "\t";
         }
         std::cout << "\n";

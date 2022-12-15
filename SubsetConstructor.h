@@ -10,6 +10,7 @@
 #include <queue>
 #include "NFA.h"
 #include "DFANode.h"
+#include "RulesParser.h"
 
 using NodeSet = std::set<NFANode*>;
 class SubsetConstructor {
@@ -17,7 +18,7 @@ class SubsetConstructor {
     static NodeSet getKleeneClosure(std::set<NFANode *> start);
 
 public:
-    static DFANode* construct(NFA nfa);
+    static DFANode *construct(NFA nfa, RulesParser parser);
 
 
 };

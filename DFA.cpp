@@ -28,7 +28,7 @@ std::vector<Token> DFA::accept(std::string str) {
     if (str == "")
         return {};
 
-    //transitionTable.print();
+//    transitionTable.print();
     auto table = getTransitionTable();
     DFANode* currentState = startNode;
     int lastAcceptedIndex = 0;

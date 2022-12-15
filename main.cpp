@@ -17,23 +17,25 @@ int main(int argc, char **argv) {
     // Use the run configuration "Run on rules.txt"
     //string lexicalRulesInputFilePath = argv[1];
 
-    string lexicalRulesInputFilePath ="C:\\Users\\v-louaiali\\CLionProjects\\CompilerProject\\rules.txt";
+    string lexicalRulesInputFilePath ="D:\\College\\4th year - 1st semester\\Compilers\\CompilerProject\\rules.txt";
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
     RegExpGenerator generator = RegExpGenerator(parser.regularDefinitions);
     map<string, RegExp> parsedRegExp = generator.generateAllExpressions(parser);
     NFA combinedNfa = NFA::constructCombinedNFA(parsedRegExp);
-    for (auto entry: parsedRegExp){
-        std::cout << "Construction of: " << entry.first << std::endl;
-        NFA nfa(entry.second, entry.first);
-        //nfa.print();
-    }
+//    for (auto entry: parsedRegExp){
+//        std::cout << "Construction of: " << entry.first << std::endl;
+//        NFA nfa(entry.second, entry.first);
+//        nfa.print();
+//    }
+//    combinedNfa.print();
 
-    DFANode* dfaNode = SubsetConstructor::construct(combinedNfa);
+
+    DFANode* dfaNode = SubsetConstructor::construct(combinedNfa, parser);
     DFA dfa(dfaNode);
-    DFA* minimizedDFA = (new Minimizer())->minimize(&dfa);
-    auto res = minimizedDFA->accept("int aab , bba , b10 , a; while (bb !=10){bb =bb +1;}");
-    //    auto res = dfa.accept("int aab , bba , b10 , a; while (bb !=10){bb =bb +1;}");
+////    DFA* minimizedDFA = (new Minimizer())->minimize(&dfa);
+////    auto res = minimizedDFA->accept("int aab , bba , b10 , a; while (bb !=10){bb =bb +1;} if hello&");
+    auto res = dfa.accept("int aab , bba , b10 , a; while (bb !=10){bb =bb +1;}");
     for (auto token: res) {
         cout << token.type << " " << token.value << endl;
     }

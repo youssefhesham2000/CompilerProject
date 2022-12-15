@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <map>
+#include "Pattern.h"
 
 #ifndef COMPILERPROJECT_NFANODE_H
 #define COMPILERPROJECT_NFANODE_H
@@ -11,17 +12,15 @@
 const char epsilonTransition = '\0';
 
 class NFANode {
-
 public:
-    // Added in order to make set.insert work as it require operator in the user defined objects
-    bool operator<(const NFANode& t) const
-    {
-        return (this->id < t.id);
-    }
-    std::map<char, std::vector<NFANode*>> transitions;
-    int id;
+    std::vector<pair<Pattern, std::vector<NFANode*>>> transitions;
     bool isFinal;
     std::string type; // int, id, num, ...
+
+
+    int getTransitionIdx(Pattern);
+    void addTransition(Pattern, std::vector<NFANode*>);
+    void addTransition(Pattern, NFANode*);
 };
 
 

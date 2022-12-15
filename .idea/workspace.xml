@@ -13,13 +13,23 @@
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8beb4a07-316b-4d2b-9bc4-98bf195b77c0" name="Changes" comment="Change Minimizer to accept pointers">
+    <list default="true" id="8beb4a07-316b-4d2b-9bc4-98bf195b77c0" name="Changes" comment="Fix accept bug, recognizing dead states">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minimizer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Minimizer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DFA.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/DFA.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NFA.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/NFA.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NFA.h" beforeDir="false" afterPath="$PROJECT_DIR$/NFA.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NFANode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/NFANode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NFANode.h" beforeDir="false" afterPath="$PROJECT_DIR$/NFANode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pattern.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Pattern.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pattern.h" beforeDir="false" afterPath="$PROJECT_DIR$/Pattern.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SubsetConstructor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/SubsetConstructor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SubsetConstructor.h" beforeDir="false" afterPath="$PROJECT_DIR$/SubsetConstructor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/rules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +70,7 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -67,19 +78,19 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompilerProject" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CompilerProject" TARGET_NAME="CompilerProject" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CompilerProject" RUN_TARGET_NAME="CompilerProject">
+    <configuration name="CompilerProject" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CompilerProject" TARGET_NAME="CompilerProject" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CompilerProject" RUN_TARGET_NAME="CompilerProject">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -156,6 +167,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix type" />
@@ -170,14 +182,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/NFA.cpp</url>
-          <line>189</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Minimizer.cpp</url>
           <line>29</line>
           <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/TransitionTable.cpp</url>
+          <line>24</line>
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -185,6 +197,9 @@
       <configuration name="CMakeRunConfiguration">
         <watch expression="combinedNfa.startNode" />
         <watch expression="nfa.startNode-&gt;transitions" />
+        <watch expression="setToNode[0].first" />
+        <watch expression="setToNode[0].second" />
+        <watch expression="setToNode[0].second-&gt;transitions[0].second-&gt;transitions" />
       </configuration>
     </watches-manager>
   </component>

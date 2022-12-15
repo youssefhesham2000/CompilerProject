@@ -21,6 +21,7 @@ private:
     NFA(){};
     static NFA constructConcatenation(RegExp regExp);
     static NFA constructDisjunction(RegExp regExp);
+    static NFA constructRange(RegExp regExp);
     static NFA constructKleeneClosure(RegExp regExp);
     static NFA constructPositiveClosure(RegExp regExp);
 

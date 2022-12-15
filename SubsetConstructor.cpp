@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "SubsetConstructor.h"
+#include "RulesParser.h"
 
 
 NodeSet SubsetConstructor::getKleeneClosure(NFANode* start){
@@ -14,7 +15,7 @@ NodeSet SubsetConstructor::getKleeneClosure(NFANode* start){
     while(!q.empty()) {
         NFANode* node = q.front();q.pop();
 
-        for (NFANode* neighbour: node->transitions[epsilonTransition]){
+        for (NFANode* neighbour: node->transitions[node->getTransitionIdx(Pattern())].second){
             if (result.count(neighbour) == 0){
                 result.insert(neighbour);
                 q.push(neighbour);
@@ -33,11 +34,9 @@ NodeSet SubsetConstructor::getKleeneClosure(NodeSet start){
     return result;
 }
 
-DFANode* SubsetConstructor::construct(NFA nfa){
-    // counts the number of sets found, for utility
-    int counter = 0;
+DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
 
-    std::map<NodeSet, std::map<char, NodeSet>> transitionTable;
+    std::map<NodeSet, std::map<Pattern, NodeSet>> transitionTable;
     std::queue<NodeSet> q;
 
 
@@ -55,11 +54,11 @@ DFANode* SubsetConstructor::construct(NFA nfa){
         */
         for (NFANode* node: s) {
             for (auto transitions: node->transitions) {
-                char c = transitions.first;
+                Pattern p = transitions.first;
 
                 for (NFANode* neighbour: transitions.second) {
                     auto closure = getKleeneClosure(neighbour);
-                    transitionTable[s][c].insert(closure.begin(), closure.end());
+                    transitionTable[s][p].insert(closure.begin(), closure.end());
                 }
             }
         }
@@ -86,7 +85,6 @@ DFANode* SubsetConstructor::construct(NFA nfa){
             if (n->isFinal){
                 node->type = n->type;
                 node->isFinal = true;
-                break;
             }
         }
 
@@ -98,10 +96,12 @@ DFANode* SubsetConstructor::construct(NFA nfa){
     for (auto row: transitionTable) {
         DFANode* src = setToNode[row.first];
         for (auto transition: row.second) {
-            char c = transition.first;
+            Pattern p = transition.first;
             DFANode* dest = setToNode[transition.second];
 
-            src->transitions[c] = dest;
+            for (char c: p.getMatches()){
+                src->transitions[c] = dest;
+            }
         }
     }
 
