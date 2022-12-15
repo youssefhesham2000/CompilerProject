@@ -54,33 +54,6 @@ bool Pattern::operator==(const Pattern p) const{
     return false;
 }
 
-bool Pattern::operator<(const Pattern p) const{
-    if (*this == p){
-        return false;
-    }
-
-    // Order: epsilon < char < range
-    if (this->epsilon)
-        return !p.isEpsilon();
-    if (p.isEpsilon())
-        return false;
-
-    if (!this->range) {
-        if (p.range)
-            return true;
-        return this->pattern[0] < p.pattern[0];
-    }
-    if (!p.range)
-        return false;
-
-
-    if (this->pattern[0] < p.pattern[0])
-        return true;
-    if (this->pattern[0] > p.pattern[0])
-        return false;
-
-    return this->pattern[1] < p.pattern[1];
-}
 
 std::vector<char> Pattern::getMatches(){
     if (epsilon)

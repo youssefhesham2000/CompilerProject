@@ -8,6 +8,10 @@
 
 
 NodeSet SubsetConstructor::getKleeneClosure(NFANode* start){
+    static std::unordered_map<NFANode*, NodeSet> cachedResults;
+    if (cachedResults.find(start) != cachedResults.end())
+        return cachedResults[start];
+
     std::queue<NFANode*> q;
     NodeSet result;
     q.push(start);
@@ -22,21 +26,41 @@ NodeSet SubsetConstructor::getKleeneClosure(NFANode* start){
             }
         }
     }
+
+    cachedResults[start] = result;
     return result;
 }
 
 NodeSet SubsetConstructor::getKleeneClosure(NodeSet start){
+    static std::map<NodeSet, NodeSet> cachedResults;
+    if (cachedResults.find(start) != cachedResults.end())
+        return cachedResults[start];
+
     NodeSet result;
     for (auto node: start) {
         auto subKleeneClosure = getKleeneClosure(node);
         result.insert(subKleeneClosure.begin(), subKleeneClosure.end());
     }
+
+    cachedResults[start] = result;
     return result;
 }
 
+void addTransitionHelper(NodeSet& from, const Pattern& p, NodeSet& to, std::map<NodeSet, std::vector<pair<Pattern, NodeSet>>> &transitionTable) {
+    for (auto &transition: transitionTable[from]){
+        if (transition.first == p) {
+            transition.second.insert(to.begin(), to.end());
+            return;
+        }
+    }
+
+    transitionTable[from].emplace_back(p, to);
+}
+
+
 DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
 
-    std::map<NodeSet, std::map<Pattern, NodeSet>> transitionTable;
+    std::map<NodeSet, std::vector<pair<Pattern, NodeSet>>> transitionTable;
     std::queue<NodeSet> q;
 
 
@@ -56,10 +80,8 @@ DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
             for (auto transitions: node->transitions) {
                 Pattern p = transitions.first;
 
-                for (NFANode* neighbour: transitions.second) {
-                    auto closure = getKleeneClosure(neighbour);
-                    transitionTable[s][p].insert(closure.begin(), closure.end());
-                }
+                auto closure = getKleeneClosure(NodeSet(transitions.second.begin(), transitions.second.end()));
+                addTransitionHelper(s, p, closure, transitionTable);
             }
         }
 
@@ -87,8 +109,6 @@ DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
                 node->isFinal = true;
             }
         }
-
-
         setToNode[row.first] = node;
     }
 
@@ -98,8 +118,7 @@ DFANode * SubsetConstructor::construct(NFA nfa, RulesParser parser) {
         for (auto transition: row.second) {
             Pattern p = transition.first;
             DFANode* dest = setToNode[transition.second];
-
-            for (char c: p.getMatches()){
+            for (char c : p.getMatches()) {
                 src->transitions[c] = dest;
             }
         }

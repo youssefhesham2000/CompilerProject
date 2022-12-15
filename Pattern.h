@@ -24,7 +24,6 @@ public:
     bool isEpsilon() const;
     bool match(char character);
     bool operator== (const Pattern) const;
-    bool operator< (const Pattern) const;
     string print();
     std::vector<char> getMatches();
 
