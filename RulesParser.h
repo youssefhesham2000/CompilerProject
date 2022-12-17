@@ -23,6 +23,9 @@ public:
     vector<RegularLine> regularExpressions;
     static std::map<std::string, RegExp> regularDefinitionsMap;
     int parseInputFile(string path);
+    // phase 2
+    std::map<std::string, std::string> CFGRules;
+    void parseCFGRules(string path);
 
 
 private:

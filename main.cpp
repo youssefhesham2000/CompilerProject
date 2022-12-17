@@ -8,37 +8,79 @@
 #include "SubsetConstructor.h"
 #include "DFA.h"
 #include "Minimizer.h"
-
+#include "Phase2/Production.h"
 using namespace std;
 
 
 int main(int argc, char **argv) {
+    //"D:\\rules.txt"
+    // Use the run configuration "Run on rules.txt"
+    //string lexicalRulesInputFilePath = argv[1];
 
-    string lexicalRulesInputFilePath ="D:\\College\\4th year - 1st semester\\Compilers\\CompilerProject\\rules.txt";
+    string lexicalRulesInputFilePath ="D:\\rules.txt";
+    string CFGRulesPath = "D:\\CFGRules.txt";
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
-    RegExpGenerator generator = RegExpGenerator(parser.regularDefinitions);
-    map<string, RegExp> parsedRegExp = generator.generateAllExpressions(parser);
-    NFA combinedNfa = NFA::constructCombinedNFA(parsedRegExp);
-    DFANode* dfaNode = SubsetConstructor::construct(combinedNfa, parser);
-    DFA dfa(dfaNode);
-    DFA* minimizedDFA = (new Minimizer())->minimize(&dfa);
-    auto res = minimizedDFA->accept(string("int n = 3\n")
-                                    + "float f = 56.7;\n"
-                                    + "float f2 = 5.67E1\n"
-                                    + "x x,x 5 n \n"
-                                    + "if (f >50) { f = f2 / 2}\n"
-                                    + "else { f = f2 * 2}\n"
-                                    + "int x = 70 e b);\n"
-                                    + "int x = 70e;\n"
-                                    + "int x = 70&y;\n"
-                                    + "boolean x = false \n"
-                                    + "boolean x = 0\n"
-                                    );
-    for (auto token: res) {
-        if (token.type != "")
-            cout << token.type << " " << token.value << endl;
+    parser.parseCFGRules(CFGRulesPath);
+    string RHS = parser.CFGRules.find("ASSIGNMENT")->second;
+    Production production =  Production::parseProduction(RHS);
+    cout<< " test"<< endl;
+//    RegExpGenerator generator = RegExpGenerator(parser.regularDefinitions);
+//    map<string, RegExp> parsedRegExp = generator.generateAllExpressions(parser);
+//    NFA combinedNfa = NFA::constructCombinedNFA(parsedRegExp);
+//    for (auto entry: parsedRegExp){
+//        std::cout << "Construction of: " << entry.first << std::endl;
+//        NFA nfa(entry.second, entry.first);
+//        //nfa.print();
+//    }
+//
+//    DFANode* dfaNode = SubsetConstructor::construct(combinedNfa);
+//    DFA dfa(dfaNode);
+//    DFA* minimizedDFA = (new Minimizer())->minimize(&dfa);
+//    auto res = minimizedDFA->accept("int n = 3\n"
+//                                    +"float f = 56.7;\n"
+//                                    +"float f2 = 5.67E1\n"
+//                                    +"x x,x 5 n \n"
+//                                    +"if (f >50) { f = f2 / 2}\n"
+//                                    +"else { f = f2 * 2}\n"
+//                                    +"\n"
+//                                    +"int x = 70 e b);\n"
+//                                    +"\n"
+//                                    +"int x = 70e;\n"
+//                                    +"int x = 70&y;\n"
+//                                    +"\n"
+//                                    +"boolean x = false \n"
+//                                    +"\n"
+//                                    +"boolean x = 0");
+//    //    auto res = dfa.accept("int aab , bba , b10 , a; while (bb !=10){bb =bb +1;}");
+//    for (auto token: res) {
+//        cout << token.type << " " << token.value << endl;
+//    }
+    for(auto it: parser.keyWords){
+        cout<<it<<endl;
     }
+
+    cout<<"test"<<endl;
+
+
+    //    for (auto &it : parser.keyWords) {
+//        RegExp::parseKeyWord(it);
+//        //cout << it << '\n';
+//    }
+
+//    vector<std::string>res=  test.toString();
+//    for (auto &it : res) {
+//        cout << it << endl;
+//    }
+//    string s = "a-z";
+//    cout << s << endl;
+//    s = RegExp::removeLeadingAndTrailingSpaces(s);
+//    vector<string> operands = RegExp::getRange(s);
+//    RegExp r = RegExp::parseRegExp(s);
+//    cout << r.type<< endl;
+//    for (const string& s: operands){
+//        cout << s << endl;
+//    }
 
     return 0;
 

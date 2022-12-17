@@ -9,7 +9,7 @@ namespace StringUtils {
     std::string removeEnclosingBrackets(std::string str);
 
     std::string removeLeadingAndTrailingSpaces(std::string str);
-
+    std::string removeLeadingAndTrailingSingleQuotes(std::string str);
 /**
  * String containing only whitespaces
  */

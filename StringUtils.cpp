@@ -1,4 +1,5 @@
 #include <string>
+#include <stdexcept>
 #include "StringUtils.h"
 
 namespace StringUtils {
@@ -17,6 +18,15 @@ namespace StringUtils {
         while (end > 0 && str[end - 1] == ' ')
             end--;
         return str.substr(start, end - start);
+    }
+
+    std::string removeLeadingAndTrailingSingleQuotes(std::string str) {
+        if (str.front() == '\'' && str.back() == '\''){
+            return str.substr(1,str.length()-2);
+        } else {
+            return str;
+        }
+
     }
 
     bool emptyString(std::string str) {

@@ -71,6 +71,51 @@ void RulesParser::parsePunctuationLine(string str) {
         punctuation.push_back(std::string(1, str[i]));
     }
 }
+// phase 2
+void RulesParser::parseCFGRules(std::string path) {
+    fstream reInputFile;
+    reInputFile.open(path, ios::in);
+    if (reInputFile.is_open()) {
+        string temp;
+        string LHS;
+        string RHS;
+        while (getline(reInputFile, temp)) {
+            // If there is a new rule
+            if(temp[0] == '#' ) {
+                if(!LHS.empty() && !RHS.empty()) {
+                    LHS = StringUtils::removeLeadingAndTrailingSpaces(LHS);
+                    RHS = StringUtils::removeLeadingAndTrailingSpaces(RHS);
+                    this->CFGRules.insert({LHS, RHS});
+                    // clear the String to store new rule
+                    LHS = "";
+                    RHS = "";
+                }
+                int i = 1;
+                // get LHS untill we reach the first =
+                while (i< temp.length() && temp[i] != '=') {
+                    LHS += temp[i];
+                    i++;
+                }
+                i++;
+                // get the rest of the line as RHS
+                while (i < temp.length()) {
+                    RHS+= temp[i];
+                    i++;
+                }
+            } else{
+                // if the line doesn't start with # so it's the rest of RHS for another rule
+                int i = 0;
+                while (i < temp.length()) {
+                    RHS+= temp[i];
+                    i++;
+                }
+            }
+        }
+    } else {
+        cout << "File Exception" << endl;
+    }
+    reInputFile.close();
+}
 
 int RulesParser::parseInputFile(string path) {
     fstream reInputFile;
