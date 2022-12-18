@@ -21,46 +21,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Fix accept bug, recognizing dead states">
+      <change afterPath="$PROJECT_DIR$/Phase2/HashFunction.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Phase2/ParsingTable.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Phase2/ParsingTableGenerator.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Phase2/ParsingTableGenerator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CFGRules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/CFGRules.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DFA.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/DFA.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DFA.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/DFA.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DFANode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/DFANode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minimizer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/Minimizer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Minimizer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/Minimizer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NFA.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/NFA.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NFA.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/NFA.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NFAConvertor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/NFAConvertor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NFAConvertor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/NFAConvertor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NFANode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/NFANode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NFANode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/NFANode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pattern.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/Pattern.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pattern.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/Pattern.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/Production.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Production.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/Production.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Production.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/Symbol.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Symbol.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Phase2/Symbol.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Symbol.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RegExp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/RegExp.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RegExp.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/RegExp.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RegExpGenerator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/RegExpGenerator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RegExpGenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/RegExpGenerator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RulesParser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/RulesParser.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RulesParser.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/RulesParser.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StringUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/StringUtils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SubsetConstructor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/SubsetConstructor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SubsetConstructor.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/SubsetConstructor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Token.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/Token.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Token.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/Token.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransitionTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/TransitionTable.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TransitionTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/TransitionTable.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonus.bat" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/bonus.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonus.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/bonus.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bonus_flex_input.lex" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/bonus_flex_input.lex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/input.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lex.yy.c" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/lex.yy.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/rules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +87,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -137,7 +110,8 @@
       <workItem from="1671234087212" duration="1074000" />
       <workItem from="1671284151910" duration="249000" />
       <workItem from="1671317783090" duration="818000" />
-      <workItem from="1671363830536" duration="1810000" />
+      <workItem from="1671363830536" duration="3738000" />
+      <workItem from="1671372669730" duration="2089000" />
     </task>
     <task id="LOCAL-00001" summary="Fix type">
       <created>1669745515002</created>

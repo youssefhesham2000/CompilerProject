@@ -1,0 +1,14 @@
+//
+// Created by mohamed on 12/18/2022.
+//
+
+#ifndef COMPILERPROJECT_PARSINGTABLEGENERATOR_H
+#define COMPILERPROJECT_PARSINGTABLEGENERATOR_H
+
+
+class ParsingTableGenerator {
+    
+};
+
+
+#endif //COMPILERPROJECT_PARSINGTABLEGENERATOR_H
