@@ -11,7 +11,10 @@
 
 
 class ParsingTable {
+    const static std::string epsilonSymbol ;
+    const static std::string endOfParsingSymbol ;
 public:
+
     static ParsingTable generateParsingTable(std::unordered_map<std::string, std::string> CFGRules ,std::unordered_map<Symbol, std::unordered_set<Symbol, HashFunction>, HashFunction> firstSet,
                                       std::unordered_map<Symbol, std::unordered_set<Symbol, HashFunction>, HashFunction> followSet);
 
@@ -19,7 +22,6 @@ public:
     std::unordered_map<Symbol, std::unordered_map<Symbol, std::unordered_set<Symbol, HashFunction>,HashFunction>,HashFunction> parsingTable;
 private:
     ParsingTable(std::unordered_map<Symbol, std::unordered_map<Symbol, std::unordered_set<Symbol, HashFunction>,HashFunction>,HashFunction> parsingTable);
-
 };
 
 
