@@ -14,8 +14,9 @@ public:
     SymbolType type;
     std::string symbol;
     bool operator==(const Symbol& s) const{
-        return symbol.compare(s.symbol);
+        return symbol == s.symbol;
     }
+
     size_t operator()(const Symbol& inKey) const;
      Symbol(std::string, SymbolType type);
 

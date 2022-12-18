@@ -21,13 +21,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Fix accept bug, recognizing dead states">
-      <change afterPath="$PROJECT_DIR$/Phase2/HashFunction.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Phase2/ParsingTable.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Phase2/ParsingTableGenerator.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Phase2/ParsingTableGenerator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/ParsingTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/ParsingTable.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/ParsingTableGenerator.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/ParsingTableGenerator.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Phase2/Symbol.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Symbol.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +110,7 @@
       <workItem from="1671284151910" duration="249000" />
       <workItem from="1671317783090" duration="818000" />
       <workItem from="1671363830536" duration="3738000" />
-      <workItem from="1671372669730" duration="2089000" />
+      <workItem from="1671372669730" duration="3278000" />
     </task>
     <task id="LOCAL-00001" summary="Fix type">
       <created>1669745515002</created>
@@ -200,6 +199,11 @@
           <url>file://$PROJECT_DIR$/StringUtils.h</url>
           <line>10</line>
           <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Phase2/ParsingTable.h</url>
+          <line>15</line>
+          <option name="timeStamp" value="116" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
