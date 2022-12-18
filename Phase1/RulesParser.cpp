@@ -3,7 +3,7 @@
 //
 
 #include "RulesParser.h"
-#include "StringUtils.h"
+#include "../StringUtils.h"
 #define REGULAR_DEFINITION_EQUAL '='
 #define REGULAR_EXPRESSION_EQUAL ':'
 #define PUNCUTUATION_OPEN_BRACKET '['

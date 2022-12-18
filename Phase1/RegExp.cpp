@@ -5,7 +5,7 @@
 #include <iostream>
 #include "RegExp.h"
 #include "RulesParser.h"
-#include "StringUtils.h"
+#include "../StringUtils.h"
 
 
 RegExp RegExp::parseRegExp(std::string str, std::map<std::string, RegExp> regularDefinitionsToRegExp) {

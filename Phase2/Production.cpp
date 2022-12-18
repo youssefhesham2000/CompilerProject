@@ -2,44 +2,33 @@
 #include "Production.h"
 #include "../StringUtils.h"
 Production Production::parseProduction(std::string str) {
-    std::vector<Production> productions;
-    ProductionType type;
+    std::vector<std::vector<Symbol>> productions;
     str = StringUtils::removeLeadingAndTrailingSpaces(str);
-    // first see if there is any disjunction as it has priority over concatenation.
+
+    // first see if there is any disjunction.
     std::vector<std::string> disjunction =  getTopLevelDisjunction(str);
-    if (disjunction.size()>1) {
-        type = ProductionType::disjunction;
-        for (const auto& production: disjunction) {
-            productions.push_back(parseProduction(production));
+
+    for( auto it: disjunction) {
+        //
+        std::vector<std::string> concatenation =  getTopLevelConcatenation(it);
+        std::vector<Symbol> temp;
+        for (auto symbol: concatenation) {
+            std::string  tempStr = getSymbol(symbol);
+            if (tempStr != symbol){
+                // if they don't match this means that the str had a leading and trailing
+                // single quotes so it's a terminal symbol.
+                temp.emplace_back(Symbol(tempStr, SymbolType::terminal));
+            } else{
+                temp.emplace_back(Symbol(symbol, SymbolType::nonTerminal));
+            }
         }
-        return Production(productions, type);
+        productions.emplace_back(temp);
     }
-
-    // then check for concatenation.
-    std::vector<std::string> concatenation =  getTopLevelConcatenation(str);
-    if (concatenation.size()>1) {
-        type = ProductionType::concatenation;
-        for (const auto& production: concatenation) {
-            productions.push_back(parseProduction(production));
-        }
-        return Production(productions, type);
-    }
-
-    // check if it is a  symbol.
-    std::string  tempStr = getSymbol(str);
-    if (tempStr != str){
-        // if they don't match this means that the str had a leading and trailing single quotes so it's a symbol.
-        return Production(Symbol(tempStr), ProductionType::symbol );
-    }
-
-    // else it's a nested Production.
-    return Production(str);
-
-
+    return Production(productions);
 }
-Production::Production(Symbol symbol, ProductionType type) {
-    this->symbol = symbol;
-    this->type = type;
+
+Production::Production(std::vector<std::vector<Symbol>> productions) {
+    this->productions = productions;
 }
 
 std::string Production::getSymbol(std::string str) {

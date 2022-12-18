@@ -3,7 +3,7 @@
 //
 
 #include "Pattern.h"
-#include "StringUtils.h"
+#include "../StringUtils.h"
 #include "NFANode.h"
 
 Pattern::Pattern() {

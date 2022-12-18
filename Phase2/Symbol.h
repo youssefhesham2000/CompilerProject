@@ -4,12 +4,12 @@
 
 
 #include <string>
+enum class SymbolType { terminal, nonTerminal};
 class Symbol  {
-
+    SymbolType type;
     std::string symbol;
 public:
-    Symbol()=default;
-     Symbol(std::string);
+     Symbol(std::string, SymbolType type);
 };
 
 

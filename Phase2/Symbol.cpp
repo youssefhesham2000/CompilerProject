@@ -3,6 +3,8 @@
 //
 
 #include "Symbol.h"
-Symbol::Symbol(std::string symbol) {
+Symbol::Symbol(std::string symbol, SymbolType type) {
     this->symbol = symbol;
+    this-> type = type;
+
 }

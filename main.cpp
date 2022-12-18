@@ -1,13 +1,13 @@
 #include <string>
-#include "RulesParser.h"
-#include "RegExp.h"
-#include "NFA.h"
-#include "NFAConvertor.h"
-#include "DFANode.h"
-#include "RegExpGenerator.h"
-#include "SubsetConstructor.h"
-#include "DFA.h"
-#include "Minimizer.h"
+#include "Phase1/RulesParser.h"
+#include "Phase1/RegExp.h"
+#include "Phase1/NFA.h"
+#include "Phase1/NFAConvertor.h"
+#include "Phase1/DFANode.h"
+#include "Phase1/RegExpGenerator.h"
+#include "Phase1/SubsetConstructor.h"
+#include "Phase1/DFA.h"
+#include "Phase1/Minimizer.h"
 #include "Phase2/Production.h"
 using namespace std;
 
@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
     parser.parseCFGRules(CFGRulesPath);
-    string RHS = parser.CFGRules.find("ASSIGNMENT")->second;
+    string RHS = parser.CFGRules.find("STATEMENT")->second;
     Production production =  Production::parseProduction(RHS);
     cout<< " test"<< endl;
 //    RegExpGenerator generator = RegExpGenerator(parser.regularDefinitions);

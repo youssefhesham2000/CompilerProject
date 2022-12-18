@@ -1,6 +1,6 @@
 #include <string>
 #include <stdexcept>
-#include "StringUtils.h"
+#include "../StringUtils.h"
 
 namespace StringUtils {
     std::string removeEnclosingBrackets(std::string str) {
