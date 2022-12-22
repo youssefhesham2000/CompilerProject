@@ -9,6 +9,7 @@
 #include "Phase1/DFA.h"
 #include "Phase1/Minimizer.h"
 #include "Phase2/Production.h"
+#include "Phase2/SetBuilder.h"
 using namespace std;
 
 string lexicalRulesInputFilePath ="D:\\rules.txt";
@@ -47,15 +48,29 @@ vector<Token> getTokens() {
 }
 
 int main(int argc, char **argv) {
-    for (auto& t: getTokens()) {
-        cout << t.type << "\t" << t.value << endl;
-    }
+//    for (auto& t: getTokens()) {
+//        cout << t.type << "\t" << t.value << endl;
+//    }
 
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
     parser.parseCFGRules(CFGRulesPath);
-    string RHS = parser.CFGRules.find("STATEMENT")->second;
-    Production production =  Production::parseProduction(RHS);
+    unordered_map<Symbol, Production*> productions;
+    vector<Symbol> nonTerminals;
+    for (const auto& rule: parser.CFGRules) {
+        Symbol s = Symbol(rule.first, SymbolType::nonTerminal);
+        nonTerminals.push_back(s);
+        productions[s] = new Production(Production::parseProduction(rule.second));
+        cout << rule.first << "\t" << productions[Symbol(rule.first, SymbolType::nonTerminal)]->toString() << endl;
+    }
+
+    for (const auto& nonTerminal: nonTerminals) {
+        getFirstSet(nonTerminal, productions);
+    }
+
+    for (const auto& nonTerminal: nonTerminals) {
+        getFollowSet(nonTerminal, productions);
+    }
 
     return 0;
 

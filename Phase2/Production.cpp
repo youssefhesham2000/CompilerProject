@@ -1,7 +1,8 @@
 
+#include <iostream>
 #include "Production.h"
 #include "../StringUtils.h"
-Production Production::parseProduction(std::string str) {
+std::vector<std::vector<Symbol>> Production::parseProduction(std::string str) {
     std::vector<std::vector<Symbol>> productions;
     str = StringUtils::removeLeadingAndTrailingSpaces(str);
 
@@ -24,7 +25,7 @@ Production Production::parseProduction(std::string str) {
         }
         productions.emplace_back(temp);
     }
-    return Production(productions);
+    return productions;
 }
 
 Production::Production(std::vector<std::vector<Symbol>> productions) {
@@ -60,5 +61,18 @@ std::vector<std::string> Production::getTopLevelString(char delimiter, std::stri
     }
 
     return productions;
+}
+
+std::string Production::toString() {
+    std::string res;
+    for (std::vector<Symbol> disjunctionOperands: productions) {
+        res += "[ ";
+        for (Symbol symbol: disjunctionOperands) {
+            res += symbol.symbol + ":" + (symbol.type == SymbolType::terminal ? "ter" : "non-ter") + " ";
+        }
+        res += "], ";
+    }
+
+    return res;
 }
 

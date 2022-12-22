@@ -4,8 +4,7 @@
 #include "HashFunction.h"
 #include "vector"
 
-const std::string ParsingTable::epsilonSymbol = "\0";
-const std::string ParsingTable::endOfParsingSymbol = "$";
+
 
 ParsingTable::ParsingTable(
         std::unordered_map<Symbol, std::unordered_map<Symbol, std::unordered_set<Symbol, HashFunction>, HashFunction>, HashFunction> parsingTable) {
@@ -40,7 +39,7 @@ ParsingTable ParsingTable::generateParsingTable(std::unordered_map<std::string, 
                 terminalSymbolColEntry = symbolRowEntry.find(terminalSymbol)->second;
             }
 
-            if(terminalSymbol.symbol ==  epsilonSymbol) {
+            if(terminalSymbol ==  epsilonSymbol) {
                 for(Symbol followingTerminalSymbol: SymbolFollowSet) {
                     if(symbolRowEntry.find(followingTerminalSymbol) != symbolRowEntry.end()){
                         // Add alpha to M[A,b] if the entry exist.
@@ -52,7 +51,7 @@ ParsingTable ParsingTable::generateParsingTable(std::unordered_map<std::string, 
                         symbolRowEntry.insert({followingTerminalSymbol, tempColEntry});
                     }
                 }
-            } else if(terminalSymbol.symbol != endOfParsingSymbol){
+            } else if(terminalSymbol != endOfParsingSymbol){
                 terminalSymbolColEntry.insert(terminalSymbol);
             }
             symbolRowEntry.insert({terminalSymbol, terminalSymbolColEntry});

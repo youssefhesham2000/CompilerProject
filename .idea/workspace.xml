@@ -17,10 +17,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Fix accept bug, recognizing dead states">
+    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Minor bug fix + clean up main.cpp">
+      <change afterPath="$PROJECT_DIR$/Phase2/SetBuilder.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Phase2/SetBuilder.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/CFGRules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/CFGRules.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Phase2/ParsingTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/ParsingTable.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/Production.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Production.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/Production.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Production.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/Symbol.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Symbol.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/Symbol.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Symbol.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,6 +74,9 @@
   </component>
   <component name="RunManager">
     <configuration name="CompilerProject" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CompilerProject" TARGET_NAME="CompilerProject" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CompilerProject" RUN_TARGET_NAME="CompilerProject">
+      <envs>
+        <env name="CONSOLE_WIDTH" value="400" />
+      </envs>
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -136,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670366605990</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Minor bug fix + clean up main.cpp">
+      <created>1671742009609</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1671742009609</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,7 +178,8 @@
     <MESSAGE value="Added print NFA transition table for debugging" />
     <MESSAGE value="Fix concatenation bug" />
     <MESSAGE value="Fix accept bug, recognizing dead states" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix accept bug, recognizing dead states" />
+    <MESSAGE value="Minor bug fix + clean up main.cpp" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor bug fix + clean up main.cpp" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -177,7 +196,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>25</line>
+          <line>26</line>
           <option name="timeStamp" value="117" />
         </line-breakpoint>
       </breakpoints>
