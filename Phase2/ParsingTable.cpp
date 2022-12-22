@@ -4,8 +4,8 @@
 #include "HashFunction.h"
 #include "vector"
 
-const std::string epsilonSymbol = "\0";
-const std::string endOfParsingSymbol = "$";
+const std::string ParsingTable::epsilonSymbol = "\0";
+const std::string ParsingTable::endOfParsingSymbol = "$";
 
 ParsingTable::ParsingTable(
         std::unordered_map<Symbol, std::unordered_map<Symbol, std::unordered_set<Symbol, HashFunction>, HashFunction>, HashFunction> parsingTable) {
