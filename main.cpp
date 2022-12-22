@@ -61,15 +61,33 @@ int main(int argc, char **argv) {
         Symbol s = Symbol(rule.first, SymbolType::nonTerminal);
         nonTerminals.push_back(s);
         productions[s] = new Production(Production::parseProduction(rule.second));
-        cout << rule.first << "\t" << productions[Symbol(rule.first, SymbolType::nonTerminal)]->toString() << endl;
+//        cout << rule.first << "\t" << productions[Symbol(rule.first, SymbolType::nonTerminal)]->toString() << endl;
     }
 
     for (const auto& nonTerminal: nonTerminals) {
         getFirstSet(nonTerminal, productions);
     }
 
+//    for (const auto& nonTerminal: nonTerminals) {
+//        cout << nonTerminal.symbol << ": ";
+//        for (const auto& x: firstSet[nonTerminal]) {
+//            cout << x.symbol << ", ";
+//        }
+//
+//        cout << endl << endl;
+//    }
+
+    cout << "\t\t \n\nFollow Set:\n";
+
+    followSet[Symbol("METHOD_BODY", SymbolType::nonTerminal)].insert(endOfParsingSymbol);
+    initFollowSet(productions);
     for (const auto& nonTerminal: nonTerminals) {
-        getFollowSet(nonTerminal, productions);
+
+        cout << nonTerminal.symbol << ": ";
+        for (const auto& x: followSet[nonTerminal]) {
+            cout << x.symbol << ", ";
+        }
+        cout << endl << endl;
     }
 
     return 0;

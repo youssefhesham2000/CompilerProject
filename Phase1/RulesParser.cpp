@@ -111,6 +111,15 @@ void RulesParser::parseCFGRules(std::string path) {
                 }
             }
         }
+
+        if(!LHS.empty() && !RHS.empty()) {
+            LHS = StringUtils::removeLeadingAndTrailingSpaces(LHS);
+            RHS = StringUtils::removeLeadingAndTrailingSpaces(RHS);
+            this->CFGRules.insert({LHS, RHS});
+            // clear the String to store new rule
+            LHS = "";
+            RHS = "";
+        }
     } else {
         cout << "File Exception" << endl;
     }

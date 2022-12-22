@@ -13,10 +13,11 @@
 
 using SetMap = std::unordered_map<Symbol, std::unordered_set<Symbol>>;
 using ProductionMap = std::unordered_map<Symbol, Production*>;
+extern SetMap firstSet, followSet;
 
 std::unordered_set<Symbol> getFirstSet(const Symbol& s, const ProductionMap& productions);
 std::unordered_set<Symbol> getFirstSet(const std::vector<Symbol>& symbols, const ProductionMap& p);
-std::unordered_set<Symbol> getFollowSet(const Symbol& s, const ProductionMap& productions);
+void initFollowSet(const ProductionMap& productions);
 
 
 

@@ -6,7 +6,6 @@
 #include "SetBuilder.h"
 
 SetMap firstSet, followSet;
-
 // Get the first of a string of symbols
 std::unordered_set<Symbol> getFirstSet(const std::vector<Symbol>& symbols, const ProductionMap& productions) {
     if (symbols.empty())
@@ -47,44 +46,46 @@ std::unordered_set<Symbol> getFirstSet(const Symbol& s, const ProductionMap& pro
     return firstSet[s] = res;
 }
 
+bool followInsertHelper(const Symbol& s, const std::unordered_set<Symbol>& st) {
+    int oldSize = followSet[s].size();
+    followSet[s].insert(st.begin(), st.end());
+    return oldSize != followSet[s].size();
+}
 
-std::unordered_set<Symbol> getFollowSet(const Symbol& s, const ProductionMap& productions) {
-    if (followSet.find(s) != followSet.end())
-        return followSet[s];
+void initFollowSet(const ProductionMap& productions) {
+    bool added = true;
 
+    while(added) {
+        added = false;
+        for (const auto &x: productions) {
+            Symbol lhs = x.first;
+            Production *p = x.second;
 
-    std::unordered_set<Symbol> res;
+            for (auto disjunctionOperands: p->productions) {
+                auto it = disjunctionOperands.begin();
+                for (; (it + 1) != disjunctionOperands.end(); it++) {
+                    auto operand = *it;
 
-    for (const auto& x: productions) {
-        Symbol lhs = x.first;
-        Production* p = x.second;
-
-        for (auto disjunctionOperands: p->productions) {
-            auto it = disjunctionOperands.begin();
-            for (;(it+1) != disjunctionOperands.end();it++) {
-                auto operand = *it;
-                if (operand == s) {
                     // Get the first set of the rest of the operands
-                    auto temp = getFirstSet(std::vector<Symbol>(it + 1, disjunctionOperands.end()), productions);
+                    std::vector<Symbol> rest(it + 1, disjunctionOperands.end());
+                    auto temp = getFirstSet(rest, productions);
 
                     // Special case if the rest of operands derive epsilon
                     if (temp.count(epsilonSymbol) != 0) {
-                        auto lhsFollowSet = getFollowSet(lhs, productions);
-                        res.insert(lhsFollowSet.begin(), lhsFollowSet.end());
+                        auto lhsFollowSet = followSet[lhs];
+                        added = followInsertHelper(operand, lhsFollowSet);
                         temp.erase(epsilonSymbol);
                     }
-                    res.insert(temp.begin(), temp.end());
-                }
-            }
 
-            // Check if final element == s
-            if (*it == s){
-                auto lhsFollowSet = getFollowSet(lhs, productions);
-                res.insert(lhsFollowSet.begin(), lhsFollowSet.end());
+                    // Add it to followSet[operand] and check if there was something new added
+                    added = followInsertHelper(operand, temp);
+                }
+
+                // Handle last operand
+                auto lhsFollowSet = followSet[lhs];
+                added = followInsertHelper(*it, lhsFollowSet);
+
             }
         }
     }
-
-
-    return followSet[s] = res;
 }
