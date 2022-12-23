@@ -17,12 +17,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Construct first and follow set">
+    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Construct first and follow set, looks correct on inspection">
+      <change afterPath="$PROJECT_DIR$/Phase2/CFGRulesTest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Phase2/Parser.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Phase2/Parser.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase1/RulesParser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase1/RulesParser.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/CFGRules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/CFGRules.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/HashFunction.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/ParsingTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/ParsingTable.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Phase2/SetBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/SetBuilder.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/SetBuilder.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/SetBuilder.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,8 +62,12 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Phase2" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\College\4th year - 1st semester\Compilers\CompilerProject\Phase2" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Sem-9\compilers\CompilerProject\Phase2" />
       <recent name="D:\Sem-9\compilers\CompilerProject\Phase1" />
@@ -67,15 +75,15 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CompilerProject" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CompilerProject" TARGET_NAME="CompilerProject" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CompilerProject" RUN_TARGET_NAME="CompilerProject">
       <envs>
         <env name="CONSOLE_WIDTH" value="400" />
       </envs>
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -105,6 +113,7 @@
       <workItem from="1671317783090" duration="818000" />
       <workItem from="1671363830536" duration="3738000" />
       <workItem from="1671372669730" duration="6886000" />
+      <workItem from="1671797860440" duration="8418000" />
     </task>
     <task id="LOCAL-00001" summary="Fix type">
       <created>1669745515002</created>
@@ -155,7 +164,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671750271918</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Construct first and follow set, looks correct on inspection">
+      <created>1671753415103</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1671753415103</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,7 +197,8 @@
     <MESSAGE value="Fix accept bug, recognizing dead states" />
     <MESSAGE value="Minor bug fix + clean up main.cpp" />
     <MESSAGE value="Init firstSet and followSet&#10;&#10;(Not working yet)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Init firstSet and followSet&#10;&#10;(Not working yet)" />
+    <MESSAGE value="Construct first and follow set, looks correct on inspection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Construct first and follow set, looks correct on inspection" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -197,9 +214,9 @@
           <option name="timeStamp" value="115" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/main.cpp</url>
-          <line>26</line>
-          <option name="timeStamp" value="117" />
+          <url>file://$PROJECT_DIR$/Phase2/Parser.cpp</url>
+          <line>20</line>
+          <option name="timeStamp" value="122" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -211,6 +228,7 @@
         <watch expression="p-&gt;productions[0][0]" />
         <watch expression="s" />
         <watch expression="res" />
+        <watch expression="p-&gt;productions" />
       </configuration>
     </watches-manager>
   </component>

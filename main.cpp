@@ -10,86 +10,79 @@
 #include "Phase1/Minimizer.h"
 #include "Phase2/Production.h"
 #include "Phase2/SetBuilder.h"
+#include "Phase2/ParsingTable.h"
+#include "Phase2/Parser.h"
+
 using namespace std;
 
-string lexicalRulesInputFilePath ="D:\\rules.txt";
+string lexicalRulesInputFilePath = "D:\\rules.txt";
 string CFGRulesPath = "D:\\CFGRules.txt";
 
-vector<Token> getTokens() {
+void printSet(SetMap st, string title) {
+    cout << title << endl;
+    for (const auto &x: st) {
+        cout << x.first.symbol << ": ";
+        for (const auto &s: x.second) {
+            cout << s.symbol << ", ";
+        }
+        cout << endl;
+    }
+}
+
+vector<Symbol> getTokens() {
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
     RegExpGenerator generator = RegExpGenerator(parser.regularDefinitions);
     map<string, RegExp> parsedRegExp = generator.generateAllExpressions(parser);
     NFA combinedNfa = NFA::constructCombinedNFA(parsedRegExp);
-    DFANode* dfaNode = SubsetConstructor::construct(combinedNfa, parser);
+    DFANode *dfaNode = SubsetConstructor::construct(combinedNfa, parser);
     DFA dfa(dfaNode);
-    DFA* minimizedDFA = (new Minimizer())->minimize(&dfa);
-    auto res = minimizedDFA->accept(string("int n = 3\n")
-                                    +"float f = 56.7;\n"
-                                    +"float f2 = 5.67E1\n"
-                                    +"x x,x 5 n \n"
-                                    +"if (f >50) { f = f2 / 2}\n"
-                                    +"else { f = f2 * 2}\n"
-                                    +"\n"
-                                    +"int x = 70 e b);\n"
-                                    +"\n"
-                                    +"int x = 70e;\n"
-                                    +"int x = 70&y;\n"
-                                    +"\n"
-                                    +"boolean x = false \n"
-                                    +"\n"
-                                    +"boolean x = 0");
-    vector<Token> ans;
+    DFA *minimizedDFA = (new Minimizer())->minimize(&dfa);
+    auto res = minimizedDFA->accept("int x;x=5;if(x>2){x=0;}else{x=1;}");
+    vector<Symbol> ans;
     for (auto token: res) {
         if (token.value != "")
-            ans.push_back(token);
+            ans.emplace_back(token.type, SymbolType::terminal);
     }
+    ans.push_back(endOfParsingSymbol);
     return ans;
 }
 
 int main(int argc, char **argv) {
 //    for (auto& t: getTokens()) {
-//        cout << t.type << "\t" << t.value << endl;
+//        cout << t.symbol << endl;
 //    }
 
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
     parser.parseCFGRules(CFGRulesPath);
-    unordered_map<Symbol, Production*> productions;
+    unordered_map<Symbol, Production *> rules;
     vector<Symbol> nonTerminals;
-    for (const auto& rule: parser.CFGRules) {
+    for (const auto &rule: parser.CFGRules) {
         Symbol s = Symbol(rule.first, SymbolType::nonTerminal);
         nonTerminals.push_back(s);
-        productions[s] = new Production(Production::parseProduction(rule.second));
-//        cout << rule.first << "\t" << productions[Symbol(rule.first, SymbolType::nonTerminal)]->toString() << endl;
+        rules[s] = new Production(Production::parseProduction(rule.second));
     }
 
-    for (const auto& nonTerminal: nonTerminals) {
-        getFirstSet(nonTerminal, productions);
-    }
-
-//    for (const auto& nonTerminal: nonTerminals) {
-//        cout << nonTerminal.symbol << ": ";
-//        for (const auto& x: firstSet[nonTerminal]) {
-//            cout << x.symbol << ", ";
-//        }
-//
-//        cout << endl << endl;
-//    }
-
-    cout << "\t\t \n\nFollow Set:\n";
-
+    for (const auto &nonTerminal: nonTerminals)
+        getFirstSet(nonTerminal, rules);
     followSet[Symbol("METHOD_BODY", SymbolType::nonTerminal)].insert(endOfParsingSymbol);
-    initFollowSet(productions);
-    for (const auto& nonTerminal: nonTerminals) {
+    initFollowSet(rules);
 
-        cout << nonTerminal.symbol << ": ";
-        for (const auto& x: followSet[nonTerminal]) {
-            cout << x.symbol << ", ";
-        }
-        cout << endl << endl;
-    }
+//    printSet(firstSet, "First Set: ");
+    printSet(followSet, "Follow Set: ");
+    ParsingTable p = ParsingTable::generateParsingTable(rules, firstSet, followSet);
+//    p.print();
 
+//    vector<Symbol> test;
+//    test.emplace_back("id", SymbolType::terminal);
+//    test.emplace_back("+", SymbolType::terminal);
+//    test.emplace_back("id", SymbolType::terminal);
+//    test.emplace_back("*", SymbolType::terminal);
+//    test.emplace_back("id", SymbolType::terminal);
+//    test.push_back(endOfParsingSymbol);
+
+    Parser::match(p, getTokens(), Symbol("METHOD_BODY", SymbolType::nonTerminal), followSet);
     return 0;
 
 }

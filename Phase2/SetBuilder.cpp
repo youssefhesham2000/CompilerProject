@@ -53,10 +53,8 @@ bool followInsertHelper(const Symbol& s, const std::unordered_set<Symbol>& st) {
 }
 
 void initFollowSet(const ProductionMap& productions) {
-    bool added = true;
-
-    while(added) {
-        added = false;
+    int n = 1000;
+    while(n--) {
         for (const auto &x: productions) {
             Symbol lhs = x.first;
             Production *p = x.second;
@@ -65,6 +63,8 @@ void initFollowSet(const ProductionMap& productions) {
                 auto it = disjunctionOperands.begin();
                 for (; (it + 1) != disjunctionOperands.end(); it++) {
                     auto operand = *it;
+                    if (operand.type == SymbolType::terminal)
+                        continue;
 
                     // Get the first set of the rest of the operands
                     std::vector<Symbol> rest(it + 1, disjunctionOperands.end());
@@ -73,17 +73,20 @@ void initFollowSet(const ProductionMap& productions) {
                     // Special case if the rest of operands derive epsilon
                     if (temp.count(epsilonSymbol) != 0) {
                         auto lhsFollowSet = followSet[lhs];
-                        added = followInsertHelper(operand, lhsFollowSet);
+                        followInsertHelper(operand, lhsFollowSet);
                         temp.erase(epsilonSymbol);
                     }
 
                     // Add it to followSet[operand] and check if there was something new added
-                    added = followInsertHelper(operand, temp);
+                    followInsertHelper(operand, temp);
                 }
 
                 // Handle last operand
+
+                if ((*it).type == SymbolType::terminal)
+                    continue;
                 auto lhsFollowSet = followSet[lhs];
-                added = followInsertHelper(*it, lhsFollowSet);
+                followInsertHelper(*it, lhsFollowSet);
 
             }
         }
