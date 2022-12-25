@@ -83,6 +83,7 @@ int main(int argc, char **argv) {
     }
     LeftRecursion l;
     rulesTest = l.eliminateLeftRecursion(lhsStringRules, LHS);
+    cout<<"finidhed"<<endl;
 //    for (const auto &nonTerminal: nonTerminals)
 //        getFirstSet(nonTerminal, rules);
 //    followSet[Symbol("METHOD_BODY", SymbolType::nonTerminal)].insert(endOfParsingSymbol);
@@ -102,7 +103,7 @@ int main(int argc, char **argv) {
 //    test.push_back(endOfParsingSymbol);
 
     //Parser::match(p, getTokens(), Symbol("METHOD_BODY", SymbolType::nonTerminal), followSet);
-    printRules(rules);
+    printRules(rulesTest);
 cout << "test"<<endl;
     return 0;
 

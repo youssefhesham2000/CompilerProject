@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <algorithm>
 #include "LeftRecursion.h"
 #include "map"
 std::unordered_map<Symbol, Production *>
@@ -17,8 +18,12 @@ LeftRecursion::eliminateLeftRecursion(std::unordered_map<std::string , Productio
             for (auto row:tempProduction) {
                 for (auto cell:row) {
                     if (cell.symbol == LHS[j]){
-                        toBeReplaced.emplace_back(currentRules[LHS[j]]);
-                        lhsToBeReplaced.emplace_back(LHS[j]);
+                        if (std::find(lhsToBeReplaced.begin(), lhsToBeReplaced.end(), cell.symbol) == lhsToBeReplaced.end()){
+                            std::cout<<LHS[j]<<std::endl;
+                            toBeReplaced.emplace_back(currentRules[LHS[j]]);
+                            lhsToBeReplaced.emplace_back(LHS[j]);
+                        }
+
                     }
                 }
             }
@@ -28,8 +33,16 @@ LeftRecursion::eliminateLeftRecursion(std::unordered_map<std::string , Productio
             }
         }
         std::unordered_map<std::string , Production *> newRules = eliminateImmediateLeftRecursion(currentRules[LHS[i]]->productions, LHS[i]);
-        std::cout<<newRules.size()<<std::endl ;
-
+        for (auto rule:newRules) {
+            currentRules.insert({rule.first, rule.second});
+            if (rule.first != LHS[i]){
+                LHS.emplace_back(rule.first);
+            }
+        }
+        for(auto rule:currentRules){
+            std::cout<<rule.first<<std::endl;
+        }
+        std::cout<<"=========================================================="<<std::endl;
     }
 
     // convert it to the input format that suits the first and follow set.
@@ -43,8 +56,12 @@ LeftRecursion::eliminateLeftRecursion(std::unordered_map<std::string , Productio
 std::vector<std::vector<Symbol>>
 LeftRecursion::substituteSymbols(std::vector<Production *>productionToBeReplaced, std::vector<std::string> productionLHS,
                                 std::vector<std::vector<Symbol>> performedOn) {
+
+    std::cout<<"substitutiing"<<std::endl;
     std::vector<std::vector<Symbol>> output;
+    std::cout<<productionToBeReplaced.size()<<std::endl;
     for (int i = 0; i < productionToBeReplaced.size(); ++i) {
+
         Production* currentProduction =  productionToBeReplaced[i];
         for (int j = 0; j < performedOn.size(); ++j) {
             int k = 0;
@@ -87,6 +104,7 @@ LeftRecursion::substituteSymbols(std::vector<Production *>productionToBeReplaced
 
 std::unordered_map<std::string , Production *> LeftRecursion::eliminateImmediateLeftRecursion(std::vector<std::vector<Symbol>> productions,
                                                                                                      std::string LHS) {
+    std::cout<<"eliminating immediate"<<std::endl;
     std::vector<std::vector<Symbol>> betas;
     std::vector<std::vector<Symbol>> alphas;
     for (int i = 0; i < productions.size(); ++i) {
@@ -109,7 +127,7 @@ std::unordered_map<std::string , Production *> LeftRecursion::eliminateImmediate
         // construct rule for betas.
         std::vector<std::vector<Symbol>> currentRuleProduction;
         Symbol newLHS = Symbol(LHS + "`", SymbolType::nonTerminal);
-        Symbol epsilon = Symbol(LHS + "\\L", SymbolType::terminal);
+        Symbol epsilon = Symbol("\\L", SymbolType::terminal);
         for (int i = 0; i < betas.size(); ++i) {
             currentRuleProduction.emplace_back(betas[i]);
             currentRuleProduction[i].emplace_back(newLHS);
