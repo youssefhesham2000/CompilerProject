@@ -3,6 +3,7 @@
 //
 
 #include <map>
+#include <stdexcept>
 #include "SetBuilder.h"
 
 SetMap firstSet, followSet;

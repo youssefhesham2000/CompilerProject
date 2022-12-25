@@ -6,6 +6,7 @@
 #include <string>
 #include <bits/stdc++.h>
 #include "RegExp.h"
+#include "../Phase2/Symbol.h"
 using namespace std;
 #ifndef COMPILERPROJECT_RULESPARSER_H
 #define COMPILERPROJECT_RULESPARSER_H
@@ -26,6 +27,7 @@ public:
     // phase 2
     std::unordered_map<std::string, std::string> CFGRules;
     void parseCFGRules(string path);
+    std::vector<std::string> getCFGLhs();
 
 
 private:

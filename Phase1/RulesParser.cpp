@@ -126,6 +126,14 @@ void RulesParser::parseCFGRules(std::string path) {
     reInputFile.close();
 }
 
+std::vector<string> RulesParser::getCFGLhs() {
+    std::vector<std::string> LHS;
+    for (auto line: this->CFGRules) {
+        LHS.emplace_back(line.first);
+    }
+    return LHS;
+}
+
 int RulesParser::parseInputFile(string path) {
     fstream reInputFile;
     reInputFile.open(path, ios::in);
