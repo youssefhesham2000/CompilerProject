@@ -55,9 +55,7 @@ void printRules(unordered_map<Symbol, Production *> rules){
             for (int j = 0; j < productions[i].size(); ++j) {
                 cout<< productions[i][j].symbol<<" ";
             }
-            if(i !=productions.size()){
                 cout<<"|"<<" ";
-            }
 
         }
     cout<<" "<<endl;
@@ -72,6 +70,7 @@ int main(int argc, char **argv) {
 //    parser.parseInputFile(lexicalRulesInputFilePath);
     parser.parseCFGRules(CFGRulesPath);
     unordered_map<Symbol, Production *> rules;
+    unordered_map<Symbol, Production *> rulesTest;
     unordered_map<std::string, Production *> lhsStringRules;
     vector<std::string> LHS;
     vector<Symbol> nonTerminals;
@@ -83,7 +82,7 @@ int main(int argc, char **argv) {
         rules[s] = new Production(Production::parseProduction(rule.second));
     }
     LeftRecursion l;
-     rules = l.eliminateLeftRecursion(lhsStringRules, LHS);
+    rulesTest = l.eliminateLeftRecursion(lhsStringRules, LHS);
 //    for (const auto &nonTerminal: nonTerminals)
 //        getFirstSet(nonTerminal, rules);
 //    followSet[Symbol("METHOD_BODY", SymbolType::nonTerminal)].insert(endOfParsingSymbol);
@@ -104,7 +103,7 @@ int main(int argc, char **argv) {
 
     //Parser::match(p, getTokens(), Symbol("METHOD_BODY", SymbolType::nonTerminal), followSet);
     printRules(rules);
-    cout<<":test"<<endl;
+cout << "test"<<endl;
     return 0;
 
 }
