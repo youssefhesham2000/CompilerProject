@@ -47,7 +47,22 @@ string CFGRulesPath = "D:\\CFGRules.txt";
 //    ans.push_back(endOfParsingSymbol);
 //    return ans;
 //}
+void printRules(unordered_map<Symbol, Production *> rules){
+    for (auto rule:rules) {
+        cout<< rule.first.symbol<<" = ";
+        vector<vector<Symbol>> productions = rule.second->productions;
+        for (int i = 0; i < productions.size(); ++i) {
+            for (int j = 0; j < productions[i].size(); ++j) {
+                cout<< productions[i][j].symbol<<" ";
+            }
+            if(i !=productions.size()){
+                cout<<"|"<<" ";
+            }
 
+        }
+    cout<<" "<<endl;
+    }
+}
 int main(int argc, char **argv) {
 //    for (auto& t: getTokens()) {
 //        cout << t.symbol << endl;
@@ -88,6 +103,7 @@ int main(int argc, char **argv) {
 //    test.push_back(endOfParsingSymbol);
 
     //Parser::match(p, getTokens(), Symbol("METHOD_BODY", SymbolType::nonTerminal), followSet);
+    printRules(rules);
     cout<<":test"<<endl;
     return 0;
 
