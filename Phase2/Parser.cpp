@@ -6,10 +6,9 @@
 #include <iostream>
 #include "Parser.h"
 
-void Parser::match(const ParsingTable &p, const std::vector<Symbol> &input, const Symbol &start,
-                   const std::unordered_map<Symbol, std::unordered_set<Symbol>> &followSet) {
+void Parser::match(const ParsingTable &p, std::vector<Symbol> &input, const Symbol &start,
+                   const std::unordered_map<Symbol, std::unordered_set<Symbol>> &followSet){
     auto parsingTable = p.parsingTable;
-
     std::stack<Symbol> stck;
     stck.push(endOfParsingSymbol);
     stck.push(start);
@@ -25,13 +24,16 @@ void Parser::match(const ParsingTable &p, const std::vector<Symbol> &input, cons
             std::cout << "Matched: " << currentInput->symbol << std::endl;
             currentInput++;
         } else if (top.type == SymbolType::terminal) {
-            std::cout << "Error: unexpected terminal " << currentInput->symbol << ", skipping" << std::endl;
-            currentInput++;
+            std::cout << "Error: expected '" + top.symbol << "', but found '" << currentInput->symbol << "', inserting it and continuing" << std::endl;
+            int idx = currentInput - input.begin();
+            input.insert(currentInput, top);
+            currentInput = input.begin() + idx + 1;
+            stck.pop();
         } else if (parsingTable[top][*currentInput].empty()) {
             std::cout << "Error: Found empty cell in transition table for " << top.symbol << " -> " << currentInput->symbol
                       << std::endl;
             std::cout << "Skipping tokens until a non-terminal in FOLLOW(" << top.symbol << ")" << std::endl;
-            while (followSet.count(*currentInput) == 0){
+            while (followSet.at(top).count(*currentInput) == 0){
                 currentInput++;
 
                 if (currentInput == input.end()){

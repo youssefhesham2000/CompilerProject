@@ -38,7 +38,7 @@ vector<Symbol> getTokens() {
     DFANode *dfaNode = SubsetConstructor::construct(combinedNfa, parser);
     DFA dfa(dfaNode);
     DFA *minimizedDFA = (new Minimizer())->minimize(&dfa);
-    auto res = minimizedDFA->accept("int x;x=5;if(x>2){x=0;}else{x=1;}");
+    auto res = minimizedDFA->accept("int x x=5;if(x>2){x=0;}else{x=1;}");
     vector<Symbol> ans;
     for (auto token: res) {
         if (token.value != "")
@@ -81,8 +81,8 @@ int main(int argc, char **argv) {
 //    test.emplace_back("*", SymbolType::terminal);
 //    test.emplace_back("id", SymbolType::terminal);
 //    test.push_back(endOfParsingSymbol);
-
-    Parser::match(p, getTokens(), Symbol("METHOD_BODY", SymbolType::nonTerminal), followSet);
+    auto tokens = getTokens();
+    Parser::match(p, tokens, Symbol("METHOD_BODY", SymbolType::nonTerminal), followSet);
     return 0;
 
 }

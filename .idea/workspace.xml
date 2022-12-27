@@ -17,8 +17,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Parsing Complete">
+    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Fix Error Recovery">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/Parser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Parser.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/Parser.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Parser.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="leftFactoring" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -111,7 +114,7 @@
       <workItem from="1671372669730" duration="6886000" />
       <workItem from="1671797860440" duration="9129000" />
       <workItem from="1671991803392" duration="873000" />
-      <workItem from="1672164029776" duration="1502000" />
+      <workItem from="1672164029776" duration="3204000" />
     </task>
     <task id="LOCAL-00001" summary="Fix type">
       <created>1669745515002</created>
@@ -176,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671806370600</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Fix Error Recovery">
+      <created>1672166629874</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1672166629874</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,7 +214,8 @@
     <MESSAGE value="Init firstSet and followSet&#10;&#10;(Not working yet)" />
     <MESSAGE value="Construct first and follow set, looks correct on inspection" />
     <MESSAGE value="Parsing Complete" />
-    <option name="LAST_COMMIT_MESSAGE" value="Parsing Complete" />
+    <MESSAGE value="Fix Error Recovery" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Error Recovery" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -221,8 +232,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Phase2/Parser.cpp</url>
-          <line>20</line>
+          <line>19</line>
           <option name="timeStamp" value="122" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Phase2/Parser.cpp</url>
+          <line>26</line>
+          <option name="timeStamp" value="123" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

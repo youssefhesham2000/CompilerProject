@@ -11,7 +11,7 @@
 class Parser {
 public:
 
-    static void match(const ParsingTable &p, const std::vector<Symbol> &input, const Symbol &start,
+    static void match(const ParsingTable &p, std::vector<Symbol> &input, const Symbol &start,
                       const std::unordered_map<Symbol, std::unordered_set<Symbol>> &followSet);
 
 };
