@@ -39,6 +39,7 @@ void Parser::match(const ParsingTable &p, const std::vector<Symbol> &input, cons
                     return;
                 }
             }
+            stck.pop();
         } else {
             stck.pop();
             std::vector<Symbol> production = parsingTable[top][*currentInput];

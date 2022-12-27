@@ -17,17 +17,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Construct first and follow set, looks correct on inspection">
-      <change afterPath="$PROJECT_DIR$/Phase2/CFGRulesTest.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Phase2/Parser.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Phase2/Parser.h" afterDir="false" />
+    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Parsing Complete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/HashFunction.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/ParsingTable.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/ParsingTable.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/ParsingTable.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/SetBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/SetBuilder.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +31,11 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -113,7 +109,9 @@
       <workItem from="1671317783090" duration="818000" />
       <workItem from="1671363830536" duration="3738000" />
       <workItem from="1671372669730" duration="6886000" />
-      <workItem from="1671797860440" duration="8418000" />
+      <workItem from="1671797860440" duration="9129000" />
+      <workItem from="1671991803392" duration="873000" />
+      <workItem from="1672164029776" duration="1502000" />
     </task>
     <task id="LOCAL-00001" summary="Fix type">
       <created>1669745515002</created>
@@ -171,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671753415103</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Parsing Complete">
+      <created>1671806370600</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1671806370600</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,7 +203,8 @@
     <MESSAGE value="Minor bug fix + clean up main.cpp" />
     <MESSAGE value="Init firstSet and followSet&#10;&#10;(Not working yet)" />
     <MESSAGE value="Construct first and follow set, looks correct on inspection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Construct first and follow set, looks correct on inspection" />
+    <MESSAGE value="Parsing Complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Parsing Complete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
