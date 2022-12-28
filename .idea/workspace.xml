@@ -17,10 +17,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Fix Error Recovery">
+    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Fix error recovery: terminals">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/Parser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Parser.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Phase2/Parser.h" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/Parser.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Phase2/SetBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/SetBuilder.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

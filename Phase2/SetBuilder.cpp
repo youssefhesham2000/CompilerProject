@@ -28,8 +28,14 @@ std::unordered_set<Symbol> getFirstSet(const std::vector<Symbol>& symbols, const
 }
 
 std::unordered_set<Symbol> getFirstSet(const Symbol& s, const ProductionMap& productions) {
+    static std::unordered_set<Symbol> visited;
+
     if (firstSet.find(s) != firstSet.end())
         return firstSet[s];
+
+    if (visited.count(s) != 0)
+        throw std::runtime_error("Found a recursive production: " + s.symbol);
+    visited.insert(s);
 
     if (s.type == SymbolType::terminal)
         return firstSet[s] = {s};
