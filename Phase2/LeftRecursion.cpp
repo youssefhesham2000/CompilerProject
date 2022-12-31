@@ -34,7 +34,13 @@ LeftRecursion::eliminateLeftRecursion(std::unordered_map<std::string , Productio
         }
         std::unordered_map<std::string , Production *> newRules = eliminateImmediateLeftRecursion(currentRules[LHS[i]]->productions, LHS[i]);
         for (auto rule:newRules) {
-            currentRules.insert({rule.first, rule.second});
+            auto it = currentRules.find(rule.first);
+            if(it != currentRules.end()){
+                it->second = rule.second;
+            }else{
+                currentRules.insert({rule.first, rule.second});
+            }
+
             if (rule.first != LHS[i]){
                 LHS.emplace_back(rule.first);
             }
