@@ -3,21 +3,24 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="CMakePresetLoader"><![CDATA[{
+  "useNewFormat": true
+}]]></component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
   </component>
-  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+  <component name="CMakeRunConfigurationManager">
     <generated>
       <config projectName="CompilerProject" targetName="CompilerProject" />
     </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Fix error recovery: terminals">
+    <list default="true" id="4cb32bcb-8d72-4f74-a29f-01334771a498" name="Changes" comment="Construct first and follow set, looks correct on inspection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Phase2/SetBuilder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Phase2/SetBuilder.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
@@ -57,11 +60,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Phase2" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\College\4th year - 1st semester\Compilers\CompilerProject\Phase2" />
@@ -73,22 +82,22 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CompilerProject" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CompilerProject" TARGET_NAME="CompilerProject" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CompilerProject" RUN_TARGET_NAME="CompilerProject">
+    <configuration name="CompilerProject" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CompilerProject" TARGET_NAME="CompilerProject" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CompilerProject" RUN_TARGET_NAME="CompilerProject">
       <envs>
         <env name="CONSOLE_WIDTH" value="400" />
       </envs>
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -111,9 +120,12 @@
       <workItem from="1671317783090" duration="818000" />
       <workItem from="1671363830536" duration="3738000" />
       <workItem from="1671372669730" duration="6886000" />
-      <workItem from="1671797860440" duration="9129000" />
-      <workItem from="1671991803392" duration="873000" />
-      <workItem from="1672164029776" duration="3204000" />
+      <workItem from="1671797860440" duration="8418000" />
+      <workItem from="1671986353578" duration="487000" />
+      <workItem from="1671989147427" duration="1384000" />
+      <workItem from="1672506885564" duration="4553000" />
+      <workItem from="1672669846078" duration="1950000" />
+      <workItem from="1672763571114" duration="1941000" />
     </task>
     <task id="LOCAL-00001" summary="Fix type">
       <created>1669745515002</created>
@@ -171,21 +183,7 @@
       <option name="project" value="LOCAL" />
       <updated>1671753415103</updated>
     </task>
-    <task id="LOCAL-00009" summary="Parsing Complete">
-      <created>1671806370600</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1671806370600</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Fix Error Recovery">
-      <created>1672166629874</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1672166629874</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +199,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix type" />
@@ -212,9 +209,7 @@
     <MESSAGE value="Minor bug fix + clean up main.cpp" />
     <MESSAGE value="Init firstSet and followSet&#10;&#10;(Not working yet)" />
     <MESSAGE value="Construct first and follow set, looks correct on inspection" />
-    <MESSAGE value="Parsing Complete" />
-    <MESSAGE value="Fix Error Recovery" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix Error Recovery" />
+    <option name="LAST_COMMIT_MESSAGE" value="Construct first and follow set, looks correct on inspection" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -235,9 +230,14 @@
           <option name="timeStamp" value="122" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Phase2/Parser.cpp</url>
-          <line>26</line>
-          <option name="timeStamp" value="123" />
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>86</line>
+          <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/main.cpp</url>
+          <line>58</line>
+          <option name="timeStamp" value="127" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

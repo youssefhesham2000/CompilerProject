@@ -17,6 +17,7 @@ using namespace std;
 
 string lexicalRulesInputFilePath = "D:\\rules.txt";
 string CFGRulesPath = "D:\\CFGRules.txt";
+string JavaLL1 = "D:\\Sem-9\\compilers\\CompilerProject\\Phase2\\JavaLL1.txt";
 
 void printSet(SetMap st, string title) {
     cout << title << endl;
@@ -55,7 +56,7 @@ int main(int argc, char **argv) {
 
     RulesParser parser;
     parser.parseInputFile(lexicalRulesInputFilePath);
-    parser.parseCFGRules(CFGRulesPath);
+    parser.parseCFGRules(JavaLL1);
     unordered_map<Symbol, Production *> rules;
     vector<Symbol> nonTerminals;
     for (const auto &rule: parser.CFGRules) {
